@@ -1,0 +1,13 @@
+nav:
+  - index.md
+  - カレンダー: calendar
+  - SSPメッセンジャー: sspim
+  - エクスプローラ: explorer
+  - 画像ビューワ: pictureviewer.md
+  - アーカイブビューワ: archiveviewer.md
+  - ウインドウモード: windowmode.md
+  - 音声認識: speech-recognition.md
+  - 音声合成: speech-synthesis.md
+  - その他の機能: other.md
+  - ショートカット一覧: shortcut.md
+  - 起動オプション一覧: option.md

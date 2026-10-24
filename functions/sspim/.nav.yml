@@ -1,0 +1,4 @@
+nav:
+  - index.md
+  - 送信先の追加: addto.md
+  - 送信する: sendto.md

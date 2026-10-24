@@ -1,0 +1,19 @@
+nav:
+  - index.md
+  - ゴーストごとの設定: eachghost.md
+  - 本体設定:
+    - 一般: ippan.md
+    - ゴースト(1): ghost.md
+    - ゴースト(2): ghost2.md
+    - フォルダ: folder.md
+    - 表示: disp.md
+    - 喋り/バルーン: talk.md
+    - 音声認識/合成: dictation.md
+    - 接続(1): conn1.md
+    - 接続(2): conn2.md
+    - POP: pop.md
+    - 外部アプリ: extprog.md
+    - IM: im.md
+    - 国際化: i18n.md
+    - 配信: streamingtool.md
+    - 開発/その他: dev.md

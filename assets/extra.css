@@ -1,0 +1,23 @@
+/* ヘッダの色（旧 SSP ヘルプの見出しの紺色） */
+:root,
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #333399;
+  --md-primary-fg-color--light: #5a5ac0;
+  --md-primary-fg-color--dark: #26267a;
+  --md-primary-bg-color: #fff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, .7);
+}
+
+/* 表が広いページで横スクロールできるようにする */
+.md-typeset__table {
+  min-width: 100%;
+}
+.md-typeset table:not([class]) {
+  display: table;
+}
+
+/* リンク集のバナー（200x40）を表の中で崩さない */
+.md-typeset table img {
+  max-width: none;
+}

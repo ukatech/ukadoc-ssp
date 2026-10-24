@@ -1,0 +1,72 @@
+site_name: SSP ヘルプ
+site_description: 伺かのベースウェア「SSP」の使い方ヘルプ
+site_url: https://ukatech.github.io/ukadoc-ssp/
+repo_url: https://github.com/ukatech/ukadoc-ssp
+repo_name: ukatech/ukadoc-ssp
+edit_uri: ""
+
+# 原稿はリポジトリ直下にあるため、scripts/prepare_site.py で _site_src/ に写してからビルドする
+docs_dir: _site_src
+site_dir: _site
+
+theme:
+  name: material
+  # Zensical の既定は modern（新デザイン）。従来の見た目は classic
+  variant: classic
+  # OGP などの <head> の追加（overrides/main.html）
+  custom_dir: overrides
+  language: ja
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: ダークモードに切り替え
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: ライトモードに切り替え
+
+# ページごとの OGP（overrides/main.html が使う）。キーはページの URL（トップは ""）、image は site_url からの相対パス（1200x630）
+extra:
+  ogp: {}
+
+extra_css:
+  - assets/extra.css
+
+plugins:
+  - search:
+      lang: ja
+  - awesome-nav
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  - mdx_truly_sane_lists
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+      # 右の目次は H3 まで（FAQ は質問が並ぶ）
+      toc_depth: 3
+      # GitHub と同じく日本語の見出しをそのままアンカーにする
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+validation:
+  links:
+    anchors: warn

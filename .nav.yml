@@ -1,0 +1,11 @@
+nav:
+  - index.md
+  - 基本的な使い方: howto
+  - 機能: functions
+  - 設定: config
+  - 情報: about/information.md
+  - リンク集: about/links.md
+  - よくある質問: about/faq.md
+  - 用語説明: about/reference.md
+  - SSPの基本情報: about/ssp.md
+  - 開発者向けヘルプ: dev
