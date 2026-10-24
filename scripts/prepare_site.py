@@ -25,7 +25,7 @@ OUT = os.path.join(ROOT, '_site_src')
 DIRS = ['howto', 'functions', 'config', 'dev', 'about']
 # 用語説明のページ。この見出しの用語が、ほかのページの本文でリンクになる
 GLOSSARY_PAGE = 'about/reference.md'
-SITE_URL = 'https://ukatech.github.io/ukadoc-ssp/'
+SITE_URL = 'https://ukatech.shillest.net/ukadoc-ssp/'
 # 旧 SSP ヘルプ（HTML 版）のファイル名 → 今のページ（サイトのルートに旧ファイル名の .html を置いて転送する）。
 # SSP は本体設定のヘルプボタンや `--help ファイル名` で、旧ファイル名のページを開く。index.html はサイトのトップそのもの
 REDIRECTS = {

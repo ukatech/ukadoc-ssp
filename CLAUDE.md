@@ -55,7 +55,7 @@
 
 ## GitHub Pages
 
-`main` に push すると GitHub Actions（`.github/workflows/pages.yml`）が Zensical（Material for MkDocs の後継。Material テーマ互換）でビルドし、https://ukatech.github.io/ukadoc-ssp/ に公開する。ビルドは `zensical build --strict` で、リンク切れ・アンカー切れがあると失敗する。
+`main` に push すると GitHub Actions（`.github/workflows/pages.yml`）が Zensical（Material for MkDocs の後継。Material テーマ互換）でビルドし、https://ukatech.shillest.net/ukadoc-ssp/ に公開する。ビルドは `zensical build --strict` で、リンク切れ・アンカー切れがあると失敗する。
 
 - 原稿はリポジトリ直下にあるため、`scripts/prepare_site.py` が `_site_src/` に写してからビルドする。その際 `INDEX.md` は `index.md`（トップページ）になり、`INDEX.md` へのリンクも書き換えられる
 - 設定は `mkdocs.yml` をそのまま読ませている。左メニューの章立てと名前は `.nav.yml`（mkdocs-awesome-nav）で決める
