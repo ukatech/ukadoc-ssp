@@ -16,6 +16,8 @@ theme:
   # OGP などの <head> の追加（overrides/main.html）
   custom_dir: overrides
   language: ja
+  logo: assets/logo.png
+  favicon: assets/logo.png
   features:
     - navigation.sections
     - navigation.top
