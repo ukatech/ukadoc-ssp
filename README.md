@@ -2,7 +2,7 @@
 
 伺かのベースウェア「SSP」の使い方ヘルプです。
 
-**ヘルプはこちら: https://ukatech.github.io/ukadoc-ssp/**
+**ヘルプはこちら: https://ukatech.shillest.net/ukadoc-ssp/**
 
 原稿は Markdown で、`main` ブランチに push すると GitHub Actions が Zensical でビルドして GitHub Pages に公開します。書き方や手元での確認方法は [CLAUDE.md](CLAUDE.md) にあります。
 
