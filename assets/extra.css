@@ -1,10 +1,10 @@
-/* ヘッダの色（ロゴの鈴リボンのピンクを暗くして、白い文字と区別できるようにした） */
+/* ヘッダの色。ukatech.shillest.net のトップページでの SSP ヘルプのテーマ色（紫 #6a4c93）に合わせる */
 :root,
 [data-md-color-scheme="default"],
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color: #b5524c;
-  --md-primary-fg-color--light: #cf7a72;
-  --md-primary-fg-color--dark: #8f3f3a;
+  --md-primary-fg-color: #6a4c93;
+  --md-primary-fg-color--light: #8a6fb0;
+  --md-primary-fg-color--dark: #523a75;
   --md-primary-bg-color: #fff;
   --md-primary-bg-color--light: rgba(255, 255, 255, .7);
 }

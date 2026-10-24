@@ -62,7 +62,7 @@
 - GitHub では表示できても MkDocs（Python-Markdown）では崩れる書き方がある。段落の直後に空行なしで続くリストや表は `prepare_site.py` が空行を補うので、原稿は GitHub 向けのままでよい
 - Zensical は 0.0.x の版を固定している（`requirements.txt`）。Material for MkDocs は 2026-11-05 にサポート終了のため移行した（MkDocs 2.0 はプラグインや Material テーマと互換性が無い）
 - Zensical のテンプレートは MiniJinja で、`page.file` や `page.is_homepage` が無い。`overrides/main.html` はページの URL（`page.url`）で判定し、ページ別の OGP は `extra.ogp` に URL をキーにして書く
-- 見た目は `theme.variant: classic` で従来のまま。ロゴとファビコンは `assets/logo.png`（鈴リボン）、ヘッダの色は `assets/extra.css`（リボンのピンクを暗くした色）
+- 見た目は `theme.variant: classic` で従来のまま。ロゴとファビコンは `assets/logo.png`（鈴リボン）、ヘッダの色は `assets/extra.css`（ukatech.shillest.net のトップページでのテーマ色、紫 `#6a4c93`）
 
 手元で確認するとき（`_site_src/` と `_site/` は `.gitignore` 済み）:
 
