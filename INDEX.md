@@ -44,8 +44,3 @@ SSPはユーザーの皆様の不具合報告と要望がたよりです。<br>
 
 > AI エージェント向けに、探し方の案内 [llms.txt](https://ukatech.shillest.net/ukadoc-ssp/llms.txt) を用意しています。各ページの Markdown 原稿は、リポジトリと同じパスの `.md`（例: `https://ukatech.shillest.net/ukadoc-ssp/howto/boot.md`）で取得できます。
 
-## このヘルプの対応バージョン
-
-SSP 2.7.16
-
-[![次世代高機能HTML/XHTMLエディタ「ez-HTML」(Web Frontier)](assets/ezHTML_b.gif) Created by ez-HTML](http://www.w-frontier.com/)
