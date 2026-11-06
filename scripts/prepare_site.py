@@ -9,6 +9,7 @@ r"""GitHub Pages 用に原稿を _site_src/ へ写す。
   （旧 SSP ヘルプの nwordlinks と同じ。見出し・コード・既存のリンク・URL の中はリンクにしない）
 - 旧 SSP ヘルプのファイル名（config-ippan.html など）のページに、今のページへ転送する HTML を置く（REDIRECTS）
 - 生の Markdown 原稿を _raw/ に写す（ビルド後に _site へ重ねる。llms.txt から INDEX.md などを辿れるようにする）
+- トップページの節（H2）の見出しに、見た目のための目印（attr_list の class: top-section）を付ける（見た目は assets/extra.css）
 原稿そのものは書き換えない。materials/（画像の素材）はサイトに含めない。
 """
 import json
@@ -244,6 +245,18 @@ REDIRECT_HTML = """<!doctype html>
 """
 
 
+def mark_top(text):
+    """トップページの節（H2）の見出しに、役の class（top-section）を付ける"""
+    lines = text.split('\n')
+    in_fence = False
+    for i, line in enumerate(lines):
+        if FENCE.match(line):
+            in_fence = not in_fence
+        elif not in_fence and re.match(r'^## +\S', line):
+            lines[i] = f'{line.rstrip()} {{: .top-section }}'
+    return '\n'.join(lines)
+
+
 def write_redirect(old_stem, new_md):
     """旧ファイル名のページ（サイトのルートの <旧>.html）に、新しいページへ転送する HTML を置く"""
     new_dir = new_md[:-len('.md')]
@@ -291,7 +304,7 @@ def main():
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     linker = glossary_linker(read_glossary())
-    write('index.md', render('INDEX.md', read('INDEX.md'), 'index.md', linker))
+    write('index.md', mark_top(render('INDEX.md', read('INDEX.md'), 'index.md', linker)))
     shutil.copy(os.path.join(ROOT, '.nav.yml'), os.path.join(OUT, '.nav.yml'))
     shutil.copytree(os.path.join(ROOT, 'assets'), os.path.join(OUT, 'assets'))
     shutil.copy(os.path.join(ROOT, 'llms.txt'), os.path.join(OUT, 'llms.txt'))

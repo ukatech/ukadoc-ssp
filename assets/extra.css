@@ -22,6 +22,30 @@
   max-width: none;
 }
 
+/* 暗い表示のリンクを、主色の紫 #6a4c93 と対の明るい紫にする（紫のままでは暗い地に 2.3:1 で読みにくい。ukadoc-spec と同じ手当て） */
+@media screen {
+  [data-md-color-scheme="slate"] {
+    --md-typeset-a-color: #b79ae0;
+  }
+}
+
+/* トップページの節の帯（ukadoc-spec の assets/extra.css から移した部品）。
+   目印（.top-section）は scripts/prepare_site.py が INDEX.md の写しの節（H2）に付ける */
+.md-typeset .top-section {
+  padding: .3em .6em;
+  border-radius: .1rem;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  font-weight: 700;
+}
+.md-typeset .top-section .headerlink {
+  color: var(--md-primary-bg-color--light);
+}
+.md-typeset .top-section mark {
+  background-color: var(--md-primary-bg-color);
+  color: var(--md-primary-fg-color);
+}
+
 /* ヘッダの翻訳ボタン（assets/translate.js）。Translator API が無いブラウザでは、ボタン自体を出さない */
 .ukadoc-translate {
   position: relative;
