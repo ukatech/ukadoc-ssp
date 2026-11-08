@@ -60,13 +60,13 @@
 - 原稿はリポジトリ直下にあるため、`scripts/prepare_site.py` が `_site_src/` に写してからビルドする。その際 `INDEX.md` は `index.md`（トップページ）になり、`INDEX.md` へのリンクも書き換えられる
 - `llms.txt`（AI エージェント向けの探し方の案内。`INDEX.md` と各ディレクトリの入口だけを書く）はサイトのルートに置かれる。ページごとの一覧は載せないので、ページを足しても直さなくてよい。ディレクトリを足したときは「構成」に 1 行足す
 - 生の Markdown 原稿（`README.md` と `CLAUDE.md` 以外の `.md`）は、リポジトリと同じパスでサイトにも置かれる。`scripts/prepare_site.py` が `_raw/` に写し、workflow がビルド後に `_site` へ重ねる（zensical は `.md` をページにしてしまうので、`_site_src/` には置けない）。`llms.txt` や `INDEX.md` の相対リンクは、このおかげでサイト上でも辿れる
-- 設定は `mkdocs.yml` をそのまま読ませている。左メニューの章立てと名前は `.nav.yml`（mkdocs-awesome-nav）で決める
+- 設定は `mkdocs.yml` をそのまま読ませている。章立てと名前は `.nav.yml`（mkdocs-awesome-nav）で決める。最上位の章はヘッダのタブ（`navigation.tabs`）になり、左の列にはそのタブのページ一覧と開いているページの目次（`toc.integrate`）が並ぶ（画面の幅が約 1220px に満たないとハンバーガーのメニューにまとまる）
 - GitHub では表示できても MkDocs（Python-Markdown）では崩れる書き方がある。段落の直後に空行なしで続くリストや表は `prepare_site.py` が空行を補うので、原稿は GitHub 向けのままでよい
 - Zensical は 0.0.x の版を固定している（`requirements.txt`）。Material for MkDocs は 2026-11-05 にサポート終了のため移行した（MkDocs 2.0 はプラグインや Material テーマと互換性が無い）
 - Zensical のテンプレートは MiniJinja で、`page.file` や `page.is_homepage` が無い。`overrides/main.html` はページの URL（`page.url`）で判定し、ページ別の OGP は `extra.ogp` に URL をキーにして書く
 - 見た目は `theme.variant: classic` で従来のまま。ロゴとファビコンは `assets/logo.png`（鈴リボン）、ヘッダの色は `assets/extra.css`（ukatech.shillest.net のトップページでのテーマ色、紫 `#6a4c93`）
 - ukadoc-spec の見た目の部品のうち、トップページの節の帯を移してある（`assets/extra.css` の `.top-section`。`scripts/prepare_site.py` の `mark_top()` が `INDEX.md` の写しの節（H2）に付ける）。暗い表示のリンクは、主色の紫 `#6a4c93` だと地に沈むので、明るい紫 `#b79ae0` にしている（`--md-typeset-a-color`）。この SSP ヘルプには分類ごとにまとめるページがないので、項目名の帯やコードブロックの箱は入れていない。
-- ヘッダに翻訳ボタンがある（`assets/translate.js`。`mkdocs.yml` の `extra_javascript`、見た目は `assets/extra.css` の `.ukadoc-translate`）。ブラウザ組み込みの Translator API（Chrome 138 以降のデスクトップ版など）で、本文と左メニューを日本語から英語・中国語（繁体 `zh-Hant`・簡体 `zh`）へ機械翻訳する。API が無いブラウザではボタンを出さない。訳すのは日本語を含むテキストノードだけで、`code` `pre` `kbd` と `translate="no"` の中は訳さない。訳したくない語は原稿で `<span translate="no">…</span>` と囲める。読める程度の品質でよいとしている。JavaScript を使うのはこのボタンだけ
+- ヘッダに翻訳ボタンがある（`assets/translate.js`。`mkdocs.yml` の `extra_javascript`、見た目は `assets/extra.css` の `.ukadoc-translate`）。ブラウザ組み込みの Translator API（Chrome 138 以降のデスクトップ版など）で、本文と左メニューを日本語から英語・中国語（繁体 `zh-Hant`・簡体 `zh`）へ機械翻訳する。API が無いブラウザではボタンを出さない。訳すのは日本語を含む文だけで、`code` `pre` `kbd` と `translate="no"` の中は訳さない。文はブロック（`p` `li` `td` など）の中の連なりを単位にまとめて訳し、リンク・太字・コードスパンは印（`<x1/>` `<a2>…</a2>`）に置き換えて訳してから元の要素へ戻す（印が崩れた文は断片ごとの訳に切り替える）。訳したくない語は原稿で `<span translate="no">…</span>` と囲める。読める程度の品質でよいとしている。JavaScript を使うのはこのボタンだけ
 
 手元で確認するとき（`_site_src/` と `_site/` は `.gitignore` 済み）:
 
