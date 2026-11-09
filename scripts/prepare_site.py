@@ -1,4 +1,4 @@
-r"""GitHub Pages 用に原稿を _site_src/ へ写す。
+r"""サイトのビルド（oldstyle/build.py）のために、原稿を _site_src/ へ写す。
 
 - INDEX.md を index.md（トップページ）にし、INDEX.md へのリンクも書き換える
 - GitHub では表示できるが Python-Markdown では崩れる書き方を直す
@@ -7,12 +7,10 @@ r"""GitHub Pages 用に原稿を _site_src/ へ写す。
 - `_名前_` のように _ で挟んだ書き方（斜体になってしまう）を警告する
 - 用語説明（about/reference.md）の見出しにある用語を、本文のほかのページから用語説明へのリンクにする
   （旧 SSP ヘルプの nwordlinks と同じ。見出し・コード・既存のリンク・URL の中はリンクにしない）
-- 旧 SSP ヘルプのファイル名（config-ippan.html など）のページに、今のページへ転送する HTML を置く（REDIRECTS）
 - 生の Markdown 原稿を _raw/ に写す（ビルド後に _site へ重ねる。llms.txt から INDEX.md などを辿れるようにする）
-- トップページの節（H2）の見出しに、見た目のための目印（attr_list の class: top-section）を付ける（見た目は assets/extra.css）
+- ページ名の表 PAGES（旧 SSP ヘルプのファイル名 → 原稿）を持つ。サイトの HTML のファイル名はこの名前（config-ippan.html など）
 原稿そのものは書き換えない。materials/（画像の素材）はサイトに含めない。
 """
-import json
 import os
 import posixpath
 import re
@@ -28,9 +26,10 @@ DIRS = ['howto', 'functions', 'config', 'dev', 'about']
 # 用語説明のページ。この見出しの用語が、ほかのページの本文でリンクになる
 GLOSSARY_PAGE = 'about/reference.md'
 SITE_URL = 'https://ukatech.shillest.net/ukadoc-ssp/'
-# 旧 SSP ヘルプ（HTML 版）のファイル名 → 今のページ（サイトのルートに旧ファイル名の .html を置いて転送する）。
-# SSP は本体設定のヘルプボタンや `--help ファイル名` で、旧ファイル名のページを開く。index.html はサイトのトップそのもの
-REDIRECTS = {
+# 旧 SSP ヘルプ（HTML 版）のファイル名 → 原稿。サイトの HTML は、この名前の .html として出す（INDEX.md は index.html）。
+# SSP は本体設定のヘルプボタンや `--help ファイル名` で、旧ファイル名のページを開くので、名前は変えられない
+PAGES = {
+    'index': 'INDEX.md',
     'howto-boot': 'howto/boot.md',
     'howto-use': 'howto/use.md',
     'howto-rclick': 'howto/rclick.md',
@@ -228,45 +227,6 @@ def glossary_linker(words):
     return link_text
 
 
-REDIRECT_HTML = """<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<title>ページが移動しました</title>
-<link rel="canonical" href="{url}">
-<meta http-equiv="refresh" content="0; url={target}">
-<meta name="robots" content="noindex">
-<script>location.replace({target_js});</script>
-</head>
-<body>
-<p>このページは移動しました。自動で移動しない場合は <a href="{target}">{target}</a> を開いてください。</p>
-</body>
-</html>
-"""
-
-
-def mark_top(text):
-    """トップページの節（H2）の見出しに、役の class（top-section）を付ける"""
-    lines = text.split('\n')
-    in_fence = False
-    for i, line in enumerate(lines):
-        if FENCE.match(line):
-            in_fence = not in_fence
-        elif not in_fence and re.match(r'^## +\S', line):
-            lines[i] = f'{line.rstrip()} {{: .top-section }}'
-    return '\n'.join(lines)
-
-
-def write_redirect(old_stem, new_md):
-    """旧ファイル名のページ（サイトのルートの <旧>.html）に、新しいページへ転送する HTML を置く"""
-    new_dir = new_md[:-len('.md')]
-    if posixpath.basename(new_dir) == 'index':
-        # index.md のページの URL は <ディレクトリ>/
-        new_dir = posixpath.dirname(new_dir)
-    target = new_dir + '/'
-    write(f'{old_stem}.html', REDIRECT_HTML.format(url=SITE_URL + target, target=target, target_js=json.dumps(target)))
-
-
 def render(src, text, dst, linker):
     """原稿 src（ROOT からの相対パス）の本文 text を、サイトのページ dst（OUT からの相対パス）用に直す"""
     check_underscore_em(text, src)
@@ -277,14 +237,14 @@ def render(src, text, dst, linker):
 
 
 RAW = os.path.join(ROOT, '_raw')
-RAW_SKIP_DIRS = {'scripts', 'overrides', 'assets', 'node_modules'}
+RAW_SKIP_DIRS = {'scripts', 'oldstyle', 'assets', 'node_modules'}
 RAW_SKIP_FILES = {'README.md', 'CLAUDE.md'}
 RAW_EXTRA = []   # .md 以外で、原稿から参照されていて一緒に置くファイル
 
 
 def build_raw():
     """生の Markdown 原稿を、リポジトリと同じ相対パスで _raw/ に写す。
-    zensical は docs_dir の .md をページにしてしまうので _site_src/ には置けない。ビルド後に _site へ重ねる"""
+    _site_src/ は Markdown をページにするための写しなので、生の原稿は別に置く。ビルド後に _site へ重ねる"""
     if os.path.exists(RAW):
         shutil.rmtree(RAW)
     rels = list(RAW_EXTRA)
@@ -304,10 +264,7 @@ def main():
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     linker = glossary_linker(read_glossary())
-    write('index.md', mark_top(render('INDEX.md', read('INDEX.md'), 'index.md', linker)))
-    shutil.copy(os.path.join(ROOT, '.nav.yml'), os.path.join(OUT, '.nav.yml'))
-    shutil.copytree(os.path.join(ROOT, 'assets'), os.path.join(OUT, 'assets'))
-    shutil.copy(os.path.join(ROOT, 'llms.txt'), os.path.join(OUT, 'llms.txt'))
+    write('index.md', render('INDEX.md', read('INDEX.md'), 'index.md', linker))
     build_raw()
     for d in DIRS:
         for base, _, names in os.walk(os.path.join(ROOT, d)):
@@ -315,12 +272,17 @@ def main():
                 rel = os.path.relpath(os.path.join(base, name), ROOT).replace(os.sep, '/')
                 if name.endswith('.md'):
                     write(rel, render(rel, read(rel), rel, linker))
-                elif name == '.nav.yml':
-                    write(rel, read(rel))
-    for old, new in REDIRECTS.items():
-        if not os.path.exists(os.path.join(ROOT, new)):
-            sys.exit(f'エラー: REDIRECTS の {old} の行き先 {new} が無い')
-        write_redirect(old, new)
+    for stem, md in PAGES.items():
+        if not os.path.exists(os.path.join(ROOT, md)):
+            sys.exit(f'エラー: PAGES の {stem} の原稿 {md} が無い')
+    # 原稿があるのに PAGES に無いページは、HTML が出ないので止める
+    listed = set(PAGES.values())
+    for d in DIRS:
+        for base, _, names in os.walk(os.path.join(ROOT, d)):
+            for name in names:
+                rel = os.path.relpath(os.path.join(base, name), ROOT).replace(os.sep, '/')
+                if name.endswith('.md') and rel not in listed:
+                    sys.exit(f'エラー: {rel} が PAGES に無い（サイトの HTML のファイル名を決めて足す）')
 
 
 if __name__ == '__main__':

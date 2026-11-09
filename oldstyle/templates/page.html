@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<meta name="description" content="$description">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="about.css">
+<link rel="stylesheet" href="oldstyle.css">
+$links</head>
+<body>
+<div id="page">
+<nav id="menu" aria-label="目次">
+<div id="search">
+<form action="search.html" role="search">
+<p>
+<label>検索
+<input id="query" name="q" type="search" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-dropdown">
+</label>
+</p>
+</form>
+</div>
+<div id="index">
+$menu
+</div>
+</nav>
+<div id="main">
+$breadcrumb<main id="contents">
+$content
+</main>
+$navigation</div>
+</div>
+<script src="search.js" defer></script>
+<script src="translate.js" defer></script>
+</body>
+</html>
