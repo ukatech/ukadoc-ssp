@@ -44,6 +44,9 @@ SSPのバグ情報を一手に取扱うページです（※つまり公式）�
 
 SSPのバグ報告システムです。要望などもこちらまで。
 
+GitHubに慣れている方は、このヘルプのGitHubリポジトリ（[ukatech/ukadoc-ssp](https://github.com/ukatech/ukadoc-ssp)）に、[Issue](https://github.com/ukatech/ukadoc-ssp/issues)や[Pull Request](https://github.com/ukatech/ukadoc-ssp/pulls)を送っていただいても構いません。<br>
+ヘルプの誤りの指摘や修正案は、こちらが手軽です。
+
 ### 過去のアーカイブ入手先
 
 <http://ssp.shillest.net/archive.html>
