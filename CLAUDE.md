@@ -65,6 +65,7 @@
 - 章立て（左メニュー・パンくず・前後のページ）は `.nav.yml`。メニューの階層がそのまま前後のページの順（深さ優先）になる。前後のページの表示は、3 階層目のページだけ「カレンダー:スケジュール編集」のように親の名前が前に付く（旧版と同じ）
 - `llms.txt`（AI エージェント向けの探し方の案内。`INDEX.md` と各ディレクトリの入口だけを書く）はサイトのルートに置かれる。ページごとの一覧は載せないので、ページを足しても直さなくてよい。ディレクトリを足したときは「構成」に 1 行足す
 - 生の Markdown 原稿（`README.md` と `CLAUDE.md` 以外の `.md`）は、リポジトリと同じパスでサイトにも置かれる（`prepare_site.py` が `_raw/` に写し、ビルドが出力に重ねる）。`llms.txt` や `INDEX.md` の相対リンクは、このおかげでサイト上でも辿れる
+- オフライン用のアーカイブ `ukadoc-ssp-offline.zip` を、ビルドが出力のルートに作る（サイト一式を `ukadoc-ssp/` の下にまとめたもの。`INDEX.md` からリンクしている）。公開 URL を変えたら `INDEX.md` のリンクも直す
 - Markdown の拡張は `tables` `admonition` `attr_list` `md_in_html` `mdx_truly_sane_lists` `pymdownx.superfences` `toc`。見出しのアンカーは GitHub と同じく日本語のまま（`pymdownx.slugs.slugify(case='lower')`）で、`prepare_site.py` の用語リンクと同じ変換
 - 旧版の部品への対応は、ビルド（`oldstyle/build.py`）と `oldstyle/static/oldstyle.css` が受け持つ: `!!! tip "ヒント"` → `div.Hint`、`**【開発】**` のような 【 で始まる太字 → 緑の `strong.Condition`、`### Q: ...`（と `**A1:**` の段落）→ 旧版の質問と答えの枠 `div.QnA`、1 列目が「バナー」の表 → リンク集の表 `table.Links`
 - GitHub では表示できても Python-Markdown では崩れる書き方がある。段落の直後に空行なしで続くリストや表は `prepare_site.py` が空行を補うので、原稿は GitHub 向けのままでよい

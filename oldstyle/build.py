@@ -15,6 +15,7 @@ import re
 import shutil
 import string
 import sys
+import zipfile
 
 import lxml.html
 import markdown
@@ -430,6 +431,27 @@ def copy_static():
     shutil.copytree(RAW, OUT, dirs_exist_ok=True)
 
 
+OFFLINE_ZIP = 'ukadoc-ssp-offline.zip'
+
+
+def build_offline_zip():
+    """出力したサイト一式（HTML・CSS・JS・画像・llms.txt・生の Markdown 原稿）を、オフラインで読める zip にする。
+    展開すると `ukadoc-ssp/` の下に出る。zip 自身は含めない。サイトのルートに置かれ、公開される"""
+    zip_path = os.path.join(OUT, OFFLINE_ZIP)
+    files = []
+    for dirpath, dirs, names in os.walk(OUT):
+        dirs.sort()
+        for name in sorted(names):
+            path = os.path.join(dirpath, name)
+            if path != zip_path:
+                files.append(path)
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        for path in files:
+            rel = os.path.relpath(path, OUT).replace(os.sep, '/')
+            z.write(path, 'ukadoc-ssp/' + rel)
+    return len(files), os.path.getsize(zip_path)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--no-prepare', action='store_true', help='_site_src/ を作り直さない')
@@ -444,6 +466,8 @@ def main():
     if pages is None or errors:
         sys.exit(f'ビルドに失敗: エラー {len(errors)} 件')
     write_old_url_redirects()
+    n, size = build_offline_zip()
+    print(f'{OFFLINE_ZIP}: {n} ファイル、{size / 1024 / 1024:.1f} MB')
     print(f'{len(pages)} ページを {os.path.relpath(OUT)} に出力した')
 
 

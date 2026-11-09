@@ -42,5 +42,7 @@ SSPとは、大袈裟に言えばデスクトップ・エージェント・シ�
 SSPはユーザーの皆様の不具合報告と要望がたよりです。<br>
 何か変なところを見つけたらぜひ気軽に[報告して](about/ssp.md)ください。
 
+> オフラインで読むためのアーカイブとして、このサイトの HTML・CSS・JS・画像一式を固めた [ukadoc-ssp-offline.zip](https://ukatech.shillest.net/ukadoc-ssp/ukadoc-ssp-offline.zip) を用意しています。展開した `ukadoc-ssp/index.html` から読めます。
+
 > AI エージェント向けに、探し方の案内 [llms.txt](https://ukatech.shillest.net/ukadoc-ssp/llms.txt) を用意しています。各ページの Markdown 原稿は、リポジトリと同じパスの `.md`（例: `https://ukatech.shillest.net/ukadoc-ssp/howto/boot.md`）で取得できます。
 

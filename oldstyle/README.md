@@ -32,4 +32,5 @@ body > #page
 - 出力のファイル名は旧版と同じ（`howto-boot.html` など。`PAGES`）。Zensical 版の URL（`howto/boot/`）には転送用の HTML を置く
 - 旧版は `float` で左右に分けていたが、ここでは `flex`。幅が 800px 以下では、検索欄 → 本文 → 目次の縦並びになる
 - 旧版の部品への対応: `!!! tip "ヒント"` → `div.Hint`、【 で始まる太字 → `strong.Condition`、`### Q:` → `div.QnA`（`h3.Q` と `div.A`）、1 列目が「バナー」の表 → `table.Links`
+- オフライン用のアーカイブ `ukadoc-ssp-offline.zip` を、`build.py` が `_site/` のルートに作る（`build_offline_zip()`）。サイト一式（HTML・CSS・JS・画像・`llms.txt`・生の Markdown 原稿）を `ukadoc-ssp/` の下にまとめたもので、zip 自身は含めない。`INDEX.md` の冒頭からリンクしている（絶対 URL）
 - 前後のページは `.nav.yml` の深さ優先の順。3 階層目のページは「親:題」の表示（旧版と同じ）
