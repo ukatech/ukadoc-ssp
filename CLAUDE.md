@@ -19,6 +19,8 @@
 | `.nav.yml` | 左メニュー・前後のページ・パンくずリストの元（フォルダごとにある）。メニューの名前と並びはここで決める。ページの H1 は「設定：一般」のように分類を含むので、メニューの名前とは違う |
 | `oldstyle/` | サイトのビルド（`build.py` `check.py`、旧版の CSS・画像・JS の `static/`、HTML の枠 `templates/`）。原稿ではなく、ビルドの部品 |
 | `scripts/prepare_site.py` | 原稿を `_site_src/` に写して整える（ビルドの前処理）。ページ名の表 `PAGES` もここ |
+| `scripts/translate.py` | 翻訳版を作るスクリプト（LLM を呼ぶ。「翻訳」を参照） |
+| `i18n/<言語>/` | 翻訳版（`en` `zh-Hant` `zh`）。LLM が `scripts/translate.py` で作る機械翻訳で、原稿と同じ相対パス（`.nav.yml` も含む）。**原稿の正本は日本語**で、ここは手で書かない。`i18n/glossary.tsv` は訳語の用語集 |
 
 旧 HTML のファイル名との対応は、`howto-boot.html` → `howto/boot.md`、`config-ippan.html` → `config/ippan.md`、`calendar-schedule.html` → `functions/calendar/schedule.md` のように、接頭辞をフォルダにしたもの。例外は `config.html` `functions.html` `dev.html`（それぞれのフォルダの `index.md`）、`speech_recognition.html` `speech_synthesis.html`（ハイフンに直した）、`aboutssp.html`（`about/ssp.md`）。
 
@@ -43,6 +45,7 @@
 - ページを足す・改名・移動したら、`scripts/prepare_site.py` の `PAGES`（旧 SSP ヘルプのファイル名 `config-ippan` など → 原稿）を直す。サイトの HTML は、この名前の `config-ippan.html` として出る。SSP 本体は、本体設定のヘルプボタンや `--help ファイル名` で旧ファイル名のページを開くため、既存の名前は変えられない。原稿があるのに `PAGES` か `.nav.yml` に無いと、ビルドが止まる。新しいページの名前は、旧版にならって `分類-名前`（`config-ippan` など）にする
 - 用語を増やすときは、`about/reference.md` に H3 の見出しを足す。見出しの文字がそのままリンクにする言葉になる
 - 設定・機能・開発者向けヘルプのページの H1 は「分類：ページ名」の形（例: 設定：一般）になっている。新しいページもそろえる
+- 翻訳を回し直す（`python scripts/translate.py`。下の「翻訳」を参照）。新しいページは、回し直すまで翻訳版では日本語のまま出る
 
 ## 変換元の HTML について
 
@@ -71,13 +74,26 @@
 - GitHub では表示できても Python-Markdown では崩れる書き方がある。段落の直後に空行なしで続くリストや表は `prepare_site.py` が空行を補うので、原稿は GitHub 向けのままでよい
 - ヘッダ（ロゴ・OGP・ダークモード）は無い。旧版にならって、左上の検索欄と、その右横の翻訳ボタンだけ
 - 検索は、ビルド時に作る `search-index.js`（節ごとの本文）を、`search.js` が空白区切りの語の AND で部分一致検索する。旧 SSP ヘルプの lunr による検索の代わり。左上の検索欄に打ち込むとドロップダウンが出て、Enter で `search.html?q=` に全件が並ぶ
-- 翻訳ボタンは `oldstyle/static/translate.js`（検索欄の右横。`oldstyle.css` の `.ukadoc-translate`）。ブラウザ組み込みの Translator API（Chrome 138 以降のデスクトップ版など）で、本文と左メニューを日本語から英語・中国語（繁体 `zh-Hant`・簡体 `zh`）へ機械翻訳する。API が無いブラウザではボタンを出さない。訳すのは日本語を含む文だけで、`code` `pre` `kbd` と `translate="no"` の中は訳さない。文はブロック（`p` `li` `td` など）の中の連なりを単位にまとめて訳し、リンク・太字・コードスパンは印（`<x1/>` `<a2>…</a2>`）に置き換えて訳してから元の要素へ戻す（印が崩れた文は断片ごとの訳に切り替える）。訳したくない語は原稿で `<span translate="no">…</span>` と囲める。読める程度の品質でよいとしている
+- 言語切替は `oldstyle/static/lang.js`（検索欄の右横。見た目は `oldstyle.css` の `.ukadoc-translate`）。日本語版（ルート）の下に、翻訳版（`en/` `zh-Hant/` `zh/`）が同じファイル名で出る。切替先は、頁の `<meta name="ukadoc-langs">`（ビルドが `i18n/` にある言語を書く）で決まる。翻訳版の頁の本文の頭には、機械翻訳である旨と日本語の原文へのリンクの帯を出す。翻訳版が 1 つも無ければ、ボタンは出ない。ブラウザ組み込みの Translator API を使う旧 `translate.js` は、ファイルだけ残してあり、読み込まない
 
 手元で確認するとき（`_site_src/` `_site/` `_raw/` は `.gitignore` 済み）:
 
 ```sh
 pip install -r requirements.txt
-python oldstyle/build.py    # prepare_site.py で _site_src/ を作り、_site/ に出力する（--no-prepare で作り直さない）
-python oldstyle/check.py    # 出力のリンク切れ・アンカー切れ・画像の切れを調べる（エラーが 0 件であること）
+python oldstyle/build.py    # prepare_site.py で _site_src/ を作り、_site/ に出力する。i18n/ のある言語は、続けて _site/<言語>/ に出す（--no-prepare で作り直さない、--no-langs で日本語版だけ、--lang=en でその言語だけ）
+python oldstyle/check.py    # 出力のリンク切れ・アンカー切れ・画像の切れを調べる（エラーが 0 件であること。翻訳版は --lang=en など）
 python -m http.server -d _site    # http://127.0.0.1:8000/ でプレビュー（file:// でも見られる）
 ```
+
+## 翻訳
+
+英語・繁体字中国語・簡体字中国語の版は、日本語の原稿を `scripts/translate.py` で LLM に訳させて `i18n/<言語>/` に置いたもの。サイトでは日本語版の下（`/en/` `/zh-Hant/` `/zh/`）に出る。原稿を書く側が知っておくこと:
+
+- **日本語の原稿を直したら、翻訳を回し直す**: `python scripts/translate.py`。原稿のハッシュ（`i18n/<言語>/.manifest.json`）が変わったファイルだけを、ファイルごと丸ごと訳し直す。結果を `i18n/` ごとコミットする。API の設定はリポジトリ直下の `.env`（`TRANSLATE_API_KEY` `TRANSLATE_BASE_URL`。`.gitignore` 済み）。まず `--dry-run` で量と費用の目安を見られる（全ページ・全言語で 1 ドル未満）
+- 訳すのは、原稿（`.md`）と、章立て（`.nav.yml`。メニュー・パンくず・前後のページの名前になる題だけ）。画面の枠の文言（検索欄・パンくずの名前など）は、訳さずに `oldstyle/build.py` の `UI` に言語ごとの語を書いてある
+- 訳文は構造を自動で検査する（見出しの数とレベル、リンク先、コードブロック、表、箇条書き、HTML のタグ、**構造の判定に使う日本語の語**）。通らないファイルは置かず、そのページは日本語のまま出る。**訳文に残す日本語の語**: `!!! tip "ヒント"` のタイトル、`【開発】`、表の見出しの「バナー」、`### Q:` の `Q:` と `**A1:**` の印。表示のときだけ `build.py` の `UI` で言語ごとの語に置き換わる（`【開発】` → `[Dev]` など）。コードブロックの中は訳さない
+- 見出しの id は日本語の原稿から作るので、訳した見出しでもリンクの `#見出し` は切れない。リンク先の見出しを日本語側で改名したら、翻訳も回し直す
+- 用語（ゴースト・シェルなど）の自動リンクは、翻訳版では、訳した `about/reference.md` の見出しの語を、同じ位置の日本語の見出しの id へのリンクにする
+- 訳語がぶれる語は `i18n/glossary.tsv`（`ja` `en` `zh-Hant` `zh` の列。タブ区切り）に足し、`python scripts/translate.py --force` で訳し直す。SSP の画面の文言は、`../ssp-i18n`（SSP の言語パック）の同じ項目の訳に合わせている。検査器を直したときは `--recheck` で、書き出し済みの訳文に今の検査を当て直せる
+- `i18n/` の訳文を手で直してもよいが、日本語の原稿が変わると次の翻訳で上書きされる。恒久的に直したいことは、用語集か `translate.py` のプロンプトに書く
+- 翻訳版のサイトの検査: `python oldstyle/check.py --lang=en`（画像・`llms.txt`・生の原稿は日本語版のものを共有し、翻訳版の頁は 1 つ上から参照する）

@@ -281,7 +281,7 @@ code {
 	margin-bottom: 0.8em;
 }
 
-/* ---- 翻訳ボタン（translate.js）。検索欄の右横。Translator API が無いブラウザでは出ない ---- */
+/* ---- 言語切替（lang.js）。検索欄の右横。翻訳版が 1 つも無ければ出ない ---- */
 #menu #search {
 	display: flex;
 	align-items: center;
@@ -363,6 +363,20 @@ code {
 	display: none;
 }
 
+/* 翻訳版の頁の頭に出す、機械翻訳の注記の帯（lang.js）。本文（#main）の上に置く */
+.ukadoc-mt-notice {
+	margin: 0;
+	padding: 0.4em 0.8em;
+	border-bottom: 1px solid #e0c870;
+	background: #fff8dc;
+	color: #5a4a00;
+	font-size: 85%;
+	line-height: 1.5;
+}
+.ukadoc-mt-notice a {
+	color: #7a5c00;
+}
+
 /* ---- 幅が狭いとき: 検索欄 → 本文 → 目次の縦並びにする ---- */
 @media (max-width: 800px) {
 	body {
@@ -403,7 +417,7 @@ code {
 }
 
 @media print {
-	#menu, #navigation, .ukadoc-translate {
+	#menu, #navigation, .ukadoc-translate, .ukadoc-mt-notice {
 		display: none;
 	}
 	body {

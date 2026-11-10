@@ -1,21 +1,22 @@
 <!doctype html>
-<html lang="ja">
+<html lang="$lang">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>$title</title>
 <meta name="description" content="$description">
-<link rel="icon" href="assets/logo.png">
+<meta name="ukadoc-langs" content="$langs">
+<link rel="icon" href="${base}assets/logo.png">
 <link rel="stylesheet" href="about.css">
 <link rel="stylesheet" href="oldstyle.css">
 $links</head>
 <body>
 <div id="page">
-<nav id="menu" aria-label="目次">
+<nav id="menu" aria-label="$l_contents">
 <div id="search">
 <form action="search.html" role="search">
 <div class="search-field">
-<input id="query" name="q" type="search" autocomplete="off" placeholder="ヘルプ内検索" title="ヘルプ内検索" aria-label="ヘルプ内検索" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-dropdown">
+<input id="query" name="q" type="search" autocomplete="off" placeholder="$l_search_ph" title="$l_search_ph" aria-label="$l_search_ph" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-dropdown">
 <span class="search-icon" aria-hidden="true">🔍</span>
 </div>
 </form>
@@ -31,6 +32,6 @@ $content
 $navigation</div>
 </div>
 <script src="search.js" defer></script>
-<script src="translate.js" defer></script>
+<script src="lang.js" defer></script>
 </body>
 </html>

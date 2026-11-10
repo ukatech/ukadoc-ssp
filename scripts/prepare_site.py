@@ -9,6 +9,8 @@ r"""サイトのビルド（oldstyle/build.py）のために、原稿を _site_s
   （旧 SSP ヘルプの nwordlinks と同じ。見出し・コード・既存のリンク・URL の中はリンクにしない）
 - 生の Markdown 原稿を _raw/ に写す（ビルド後に _site へ重ねる。llms.txt から INDEX.md などを辿れるようにする）
 - ページ名の表 PAGES（旧 SSP ヘルプのファイル名 → 原稿）を持つ。サイトの HTML のファイル名はこの名前（config-ippan.html など）
+- `--lang=<コード>`（例: en）を付けると、日本語の原稿に i18n/<コード>/ の翻訳を重ねたものを _site_src_<コード>/ に写す。
+  構造の判定と見出しの id は日本語の原稿から作る（訳した見出しでも `file.md#見出し` のリンクが切れないように）
 原稿そのものは書き換えない。materials/（画像の素材）はサイトに含めない。
 """
 import os
@@ -17,10 +19,23 @@ import re
 import shutil
 import sys
 
+import markdown
 from pymdownx.slugs import slugify
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
-OUT = os.path.join(ROOT, '_site_src')
+
+
+def _lang_arg():
+    """--lang=<コード>（例: en）。指定すると、日本語の原稿に i18n/<コード>/ の翻訳を重ねる。無ければ日本語版"""
+    for a in sys.argv[1:]:
+        if a.startswith('--lang='):
+            return a.split('=', 1)[1]
+    return None
+
+
+LANG = _lang_arg()
+OUT = os.path.join(ROOT, '_site_src' + (f'_{LANG}' if LANG else ''))
+I18N = os.path.join(ROOT, 'i18n', LANG) if LANG else None
 # そのまま 1 ファイル 1 ページで写すディレクトリ（入れ子のディレクトリも写す）
 DIRS = ['howto', 'functions', 'config', 'dev', 'about']
 # 用語説明のページ。この見出しの用語が、ほかのページの本文でリンクになる
@@ -91,6 +106,10 @@ FENCE = re.compile(r'^\s*(```|~~~)')
 INDEX_LINK = re.compile(r'(\]\((?:\.\./)*)INDEX\.md')
 CODE_SPAN = re.compile(r'`[^`]*`')
 
+# oldstyle/build.py と同じ Markdown の設定（見出しの id を日本語の原稿から数えるのに使う）
+MD_EXTENSIONS = ['tables', 'admonition', 'attr_list', 'md_in_html', 'mdx_truly_sane_lists', 'pymdownx.superfences', 'toc']
+MD_CONFIG = {'toc': {'slugify': slugify(case='lower')}}
+
 # `_w` や `get_property` のように _ を含む名前は、コードスパンの外に書くと斜体になってしまう。
 # 斜体は *var* で書く決まりにして、コードスパンの外の _名前_ を警告する（Python-Markdown と同じ判定）
 UNDERSCORE_EM = re.compile(r'(?<!\w)_(?!_)(.+?)(?<!_)_(?!\w)')
@@ -148,9 +167,20 @@ def check_underscore_em(text, path):
                       f'名前ならコードスパンで囲み、斜体なら *{m.group(1)}* と書く', file=sys.stderr)
 
 
-def read(rel):
+def read_ja(rel):
+    """日本語の原稿（構造の判定と、見出しの id の計算に使う。翻訳版でもここは日本語を見る）"""
     with open(os.path.join(ROOT, rel), encoding='utf-8') as f:
         return f.read()
+
+
+def read(rel):
+    """本文に使う原稿。翻訳版（LANG 指定）では i18n/<LANG>/<rel> があればそちら、無ければ日本語"""
+    if I18N:
+        path = os.path.join(I18N, rel)
+        if os.path.isfile(path):
+            with open(path, encoding='utf-8') as f:
+                return f.read()
+    return read_ja(rel)
 
 
 def write(rel, text):
@@ -175,12 +205,12 @@ def unique_id(base, used):
     return base
 
 
-def read_glossary():
+def glossary_headings(text):
     """用語説明のページの H2 以下の見出し → [(用語, 見出しの id)]（ページ内の並び順）"""
     used = set()
     in_fence = False
     words = []
-    for line in read(GLOSSARY_PAGE).split('\n'):
+    for line in text.split('\n'):
         if FENCE.match(line):
             in_fence = not in_fence
         elif not in_fence:
@@ -189,14 +219,37 @@ def read_glossary():
                 slug = unique_id(heading_slug(m.group(2)), used)
                 if len(m.group(1)) >= 2:
                     words.append((m.group(2), slug))
+    return words
+
+
+def read_glossary():
+    """用語説明のページの H2 以下の見出し → [(用語, 見出しの id)]（ページ内の並び順）。
+    翻訳版では、用語は訳した見出し、id は日本語の見出しから（位置で対応させる）"""
+    words = glossary_headings(read_ja(GLOSSARY_PAGE))
     if not words:
         sys.exit(f'エラー: {GLOSSARY_PAGE} に用語の見出しが無い')
+    if LANG:
+        local = glossary_headings(read(GLOSSARY_PAGE))
+        if len(local) != len(words):
+            sys.exit(f'エラー: {GLOSSARY_PAGE} の訳文の見出しの数が原文と合わない（原文 {len(words)}、訳文 {len(local)}）')
+        words = [(t, slug) for (t, _), (_, slug) in zip(local, words)]
     return words
+
+
+def word_pattern(word):
+    """用語の正規表現。翻訳版の英語の用語は、語の途中（shell と shellscript など）に当たらないよう、語の切れ目を要求する"""
+    pat = re.escape(word)
+    if LANG:
+        if word[:1].isascii() and word[:1].isalnum():
+            pat = r'(?<![A-Za-z0-9])' + pat
+        if word[-1:].isascii() and word[-1:].isalnum():
+            pat += r'(?![A-Za-z0-9])'
+    return pat
 
 
 def glossary_linker(words):
     # 並びの先頭の用語を優先する（nwordlinks が用語の順に置き換えていくのと同じ）
-    pattern = re.compile('|'.join(re.escape(w) for w, _ in words), re.I)
+    pattern = re.compile('|'.join(word_pattern(w) for w, _ in words), re.I)
     slug_of = {w.lower(): s for w, s in words}
 
     def link_plain(text, target):
@@ -227,17 +280,63 @@ def glossary_linker(words):
     return link_text
 
 
+def toc_ids(text):
+    """サイトの toc 拡張が原稿の見出しに付ける id を、文書順に返す"""
+    md = markdown.Markdown(extensions=MD_EXTENSIONS, extension_configs=MD_CONFIG, output_format='html')
+    md.convert(text)
+    ids = []
+
+    def walk(tokens):
+        for t in tokens:
+            ids.append(t['id'])
+            walk(t['children'])
+    walk(md.toc_tokens)
+    return ids
+
+
+def indented_headings(text):
+    """コードブロックの外の見出し行を、字下げ（!!! の囲みの中など）も含めて (行番号, 字下げ, 深さ, 見出し) で返す。
+    toc 拡張が拾う見出しは、この字下げ付きのものと、`#` の直後に空白の無い行（Python-Markdown は見出しとみなす）まで含む"""
+    in_fence = False
+    for i, line in enumerate(text.split('\n')):
+        if FENCE.match(line):
+            in_fence = not in_fence
+        elif not in_fence:
+            m = re.match(r'^(\s*)(#{1,6})(?:[ \t]+(.+?)|([^#\s].*?))\s*$', line)
+            if m:
+                yield i, m.group(1), len(m.group(2)), m.group(3) or m.group(4)
+
+
+def pin_ids(text, rel):
+    """翻訳版の見出しに、日本語の原稿から作った id を `{#id}` で固定する。
+    訳した見出しの slug が変わっても、ほかのページからの `file.md#見出し` のリンクが切れないようにする"""
+    if not I18N:
+        return text
+    ja = read_ja(rel)
+    if text == ja:
+        return text
+    ids = toc_ids(ja)
+    heads = list(indented_headings(text))
+    if len(heads) != len(ids):
+        sys.exit(f'エラー: {rel}: 訳文の見出しの数が原文と合わない（原文の toc {len(ids)}、訳文 {len(heads)}）')
+    lines = text.split('\n')
+    for (i, indent, level, title), ident in zip(heads, ids):
+        if not re.search(r'\{[^}]*#', title):
+            lines[i] = f'{indent}{"#" * level} {title} {{#{ident}}}'
+    return '\n'.join(lines)
+
+
 def render(src, text, dst, linker):
     """原稿 src（ROOT からの相対パス）の本文 text を、サイトのページ dst（OUT からの相対パス）用に直す"""
     check_underscore_em(text, src)
-    text = fix_markdown(text)
+    text = fix_markdown(pin_ids(text, src))
     if src != GLOSSARY_PAGE:
         text = linker(text, dst)
     return text
 
 
 RAW = os.path.join(ROOT, '_raw')
-RAW_SKIP_DIRS = {'scripts', 'oldstyle', 'assets', 'node_modules'}
+RAW_SKIP_DIRS = {'scripts', 'oldstyle', 'assets', 'node_modules', 'i18n'}   # i18n（翻訳）は日本語版の生の原稿に混ぜない
 RAW_SKIP_FILES = {'README.md', 'CLAUDE.md'}
 RAW_EXTRA = []   # .md 以外で、原稿から参照されていて一緒に置くファイル
 
@@ -265,7 +364,8 @@ def main():
     os.makedirs(OUT)
     linker = glossary_linker(read_glossary())
     write('index.md', render('INDEX.md', read('INDEX.md'), 'index.md', linker))
-    build_raw()
+    if not LANG:
+        build_raw()
     for d in DIRS:
         for base, _, names in os.walk(os.path.join(ROOT, d)):
             for name in sorted(names):

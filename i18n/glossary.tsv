@@ -1,0 +1,35 @@
+ja	en	zh-Hant	zh
+# SSP 本体の画面の文言は、ssp-i18n の言語パック（resource.rc）の同じ項目の訳に合わせてある。ヘルプが画面と食い違わないようにするため
+# 文脈で訳が変わる語（設定・表示・内容・登録など）は載せていない
+SSP	SSP	SSP	SSP
+さくらスクリプト	Sakura Script	Sakura Script	Sakura Script
+伺か	Ukagaka	伺か (Ukagaka)	伺か (Ukagaka)
+ベースウェア	baseware	baseware	baseware
+ゴースト	ghost	人格	人格
+シェル	shell	外殼	外壳
+バルーン	balloon	對話方塊	对话框
+プラグイン	plugin	外掛程式	插件
+ヘッドライン	headline	線上新聞	在线新闻
+ネットワーク更新	network update	線上更新	在线更新
+本体設定	Preferences	偏好設定	首选项
+ゴーストごとの設定	Ghost preferences	各人格的設定	各人格的设置
+ゴースト切り替え	Change ghost	切換人格	切换人格
+着せ替え	Dressup	換裝	换装
+エクスプローラ	Explorer	資源管理器	资源管理器
+カレンダー	Calendar	行事曆	日历
+スケジュール	Schedule	行程	日程
+スケジュールセンサ	Schedule sensor	行程感應器	日程传感器
+スクリプトログ	Script log	腳本記錄	脚本日志
+SSPメッセンジャ	SSP messenger	SSP 即時通訊	SSP 即时通讯
+画像ビューワ	Picture viewer	圖片檢視器	图片查看器
+アーカイブビューワ	Archive viewer	壓縮檔檢視器	压缩包查看器
+音声認識	Speech recognition	語音辨識	语音识别
+音声合成	Voice synthesis	語音合成	语音合成
+ウインドウモード	Window mode	視窗模式	窗口模式
+バルーンテストモード	Balloon test mode	對話方塊測試模式	对话框测试模式
+ランダムトーク	random talk	隨機談話	随机谈话
+時刻合わせ	NTP time sync	NTP 時間同步	NTP 时间同步
+再読み込み	Reload	重新載入	重新载入
+ゴースト再読み込み	Reload ghost	重新載入人格	重新载入人格
+標準に戻す	Reset	重設	重置
+開発者用機能	developer features	開發者功能	开发者功能

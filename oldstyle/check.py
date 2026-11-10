@@ -1,6 +1,6 @@
 r"""出力（_site/）の内部リンク・アンカー・画像・スクリプト・CSS の切れを調べる（zensical build --strict の代わり）。
 
-    python oldstyle/check.py
+    python oldstyle/check.py [--lang=<コード>]    （--lang を付けると _site/<コード>/ の翻訳版を調べる）
 
 エラーは出力 HTML のファイル名で出る。見つかれば終了コード 1。外部リンク（http: など）は見ない。
 """
@@ -13,13 +13,14 @@ from urllib.parse import unquote
 import lxml.html
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
-SITE = os.path.join(ROOT, '_site')
+LANG = next((a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--lang=')), None)
+SITE = os.path.join(ROOT, '_site', *([LANG] if LANG else []))
 EXTERNAL = re.compile(r'^(?:[A-Za-z][A-Za-z0-9+.-]*:|//)')
 
 
 def main():
     if not os.path.isdir(SITE):
-        sys.exit('_site/ が無い。先に python oldstyle/build.py を実行する')
+        sys.exit(f'{os.path.relpath(SITE, ROOT)}/ が無い。先に python oldstyle/build.py を実行する')
     pages = {}
     for base, _, names in os.walk(SITE):
         for name in names:
