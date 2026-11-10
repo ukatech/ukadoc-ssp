@@ -1,0 +1,13 @@
+nav:
+  - index.md
+  - 日历: calendar
+  - SSP 即时通讯: sspim
+  - 资源管理器: explorer
+  - 图片查看器: pictureviewer.md
+  - 压缩包查看器: archiveviewer.md
+  - 窗口模式: windowmode.md
+  - 语音识别: speech-recognition.md
+  - 语音合成: speech-synthesis.md
+  - 其他功能: other.md
+  - 快捷键列表: shortcut.md
+  - 启动选项列表: option.md

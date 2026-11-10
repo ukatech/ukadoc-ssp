@@ -1,0 +1,4 @@
+nav:
+  - index.md
+  - 添加收件人: addto.md
+  - 发送消息: sendto.md

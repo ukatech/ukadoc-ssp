@@ -1,0 +1,19 @@
+nav:
+  - index.md
+  - Ghost preferences: eachghost.md
+  - Preferences:
+    - General: ippan.md
+    - Ghost (1): ghost.md
+    - Ghost (2): ghost2.md
+    - Folders: folder.md
+    - Display: disp.md
+    - Speech/Balloons: talk.md
+    - Speech recognition/synthesis: dictation.md
+    - Connection (1): conn1.md
+    - Connection (2): conn2.md
+    - POP: pop.md
+    - External applications: extprog.md
+    - IM: im.md
+    - Internationalization: i18n.md
+    - Streaming: streamingtool.md
+    - Development/Other: dev.md

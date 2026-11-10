@@ -1,0 +1,19 @@
+nav:
+  - index.md
+  - 各人格的設定: eachghost.md
+  - 偏好設定:
+    - 一般: ippan.md
+    - 人格(1): ghost.md
+    - 人格(2): ghost2.md
+    - 資料夾: folder.md
+    - 顯示: disp.md
+    - 對話/對話方塊: talk.md
+    - 語音辨識/語音合成: dictation.md
+    - 連線(1): conn1.md
+    - 連線(2): conn2.md
+    - POP: pop.md
+    - 外部應用程式: extprog.md
+    - IM: im.md
+    - 國際化: i18n.md
+    - 串流: streamingtool.md
+    - 開發/其他: dev.md

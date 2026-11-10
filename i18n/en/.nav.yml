@@ -1,0 +1,11 @@
+nav:
+  - index.md
+  - Basic usage: howto
+  - Features: functions
+  - Settings: config
+  - Information: about/information.md
+  - Links: about/links.md
+  - Frequently asked questions: about/faq.md
+  - Glossary: about/reference.md
+  - SSP basic information: about/ssp.md
+  - Developer help: dev

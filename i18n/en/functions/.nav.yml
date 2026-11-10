@@ -1,0 +1,13 @@
+nav:
+  - index.md
+  - Calendar: calendar
+  - SSP messenger: sspim
+  - Explorer: explorer
+  - Picture viewer: pictureviewer.md
+  - Archive viewer: archiveviewer.md
+  - Window mode: windowmode.md
+  - Speech recognition: speech-recognition.md
+  - Voice synthesis: speech-synthesis.md
+  - Other features: other.md
+  - Shortcut list: shortcut.md
+  - Startup options list: option.md

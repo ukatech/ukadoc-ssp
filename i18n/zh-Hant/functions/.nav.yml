@@ -1,0 +1,13 @@
+nav:
+  - index.md
+  - 行事曆: calendar
+  - SSP 即時通訊: sspim
+  - 資源管理器: explorer
+  - 圖片檢視器: pictureviewer.md
+  - 壓縮檔檢視器: archiveviewer.md
+  - 視窗模式: windowmode.md
+  - 語音辨識: speech-recognition.md
+  - 語音合成: speech-synthesis.md
+  - 其他功能: other.md
+  - 快捷鍵一覽: shortcut.md
+  - 啟動選項一覽: option.md

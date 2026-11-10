@@ -1,0 +1,4 @@
+nav:
+  - index.md
+  - Add recipients: addto.md
+  - Send a message: sendto.md

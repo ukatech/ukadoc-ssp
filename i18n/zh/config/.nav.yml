@@ -1,0 +1,19 @@
+nav:
+  - index.md
+  - 各人格的设置: eachghost.md
+  - 首选项:
+    - 常规: ippan.md
+    - 人格(1): ghost.md
+    - 人格(2): ghost2.md
+    - 文件夹: folder.md
+    - 显示: disp.md
+    - 说话/对话框: talk.md
+    - 语音识别/合成: dictation.md
+    - 连接(1): conn1.md
+    - 连接(2): conn2.md
+    - POP: pop.md
+    - 外部应用程序: extprog.md
+    - 即时通讯: im.md
+    - 国际化: i18n.md
+    - 流媒体工具: streamingtool.md
+    - 开发/其他: dev.md

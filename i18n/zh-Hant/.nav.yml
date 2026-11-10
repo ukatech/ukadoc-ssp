@@ -1,0 +1,11 @@
+nav:
+  - index.md
+  - 基本用法: howto
+  - 功能: functions
+  - 設定: config
+  - 資訊: about/information.md
+  - 連結集: about/links.md
+  - 常見問題: about/faq.md
+  - 用語說明: about/reference.md
+  - SSP 基本資訊: about/ssp.md
+  - 開發者說明: dev
