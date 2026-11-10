@@ -31,7 +31,7 @@ body > #page
 ```
 
 - 出力のファイル名は旧版と同じ（`howto-boot.html` など。`PAGES`）。Zensical 版の URL（`howto/boot/`）には転送用の HTML を置く
-- 旧版は `float` で左右に分けていたが、ここでは `flex`。幅が 800px 以下では、検索欄 → 本文 → 目次の縦並びになる
+- 旧版は `float` で左右に分けていたが、ここでは `flex`。幅が 800px 以下では、検索欄（画面の上に固定） → 本文の縦並びになり、目次（`#index`）は畳む。検索欄の左端に `menu.js` がボタン（ハンバーガー）を置き、押すと検索欄の下から目次が引き出し（ドロワー）として出る（暗幕・Esc・目次の中のリンクで閉じる）。`menu.js` は head で同期に読み込み、`<html>` に `js-drawer` を付ける。CSS はこのときだけ目次を畳むので、JavaScript が動かなければ、目次は従来どおり本文の下に出る
 - 旧版の部品への対応: `!!! tip "ヒント"` → `div.Hint`、【 で始まる太字 → `strong.Condition`、`### Q:` → `div.QnA`（`h3.Q` と `div.A`）、1 列目が「バナー」の表 → `table.Links`
 - オフライン用のアーカイブ `ukadoc-ssp-offline.zip` を、`build.py` が `_site/` のルートに作る（`build_offline_zip()`）。サイト一式（HTML・CSS・JS・画像・`llms.txt`・生の Markdown 原稿）を `ukadoc-ssp/` の下にまとめたもので、zip 自身は含めない。`INDEX.md` の冒頭からリンクしている（絶対 URL）
 - 前後のページは `.nav.yml` の深さ優先の順。3 階層目のページは「親:題」の表示（旧版と同じ）

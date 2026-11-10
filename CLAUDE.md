@@ -62,7 +62,7 @@
 
 `main` に push すると GitHub Actions（`.github/workflows/pages.yml`）が `oldstyle/build.py` と `oldstyle/check.py` を走らせ、https://ukatech.shillest.net/ukadoc-ssp/ に公開する。以前の Zensical 版は `old-zensical` ブランチに残してある。ビルドの仕組みは [`oldstyle/README.md`](oldstyle/README.md)。原稿を書くうえで知っておくことは次のとおり。
 
-- サイトの見た目と構造は、旧 SSP ヘルプ（`../ukadoc-old/ssphelp/`）を模している: 左に目次と検索（`#menu`）、右に上からパンくずリスト（`#breadcrumb`）・本文（`#contents`）・前後のページ（`#navigation`）。HTML は HTML5 で、JavaScript は検索（`search.js`）と翻訳ボタン（`translate.js`）だけ
+- サイトの見た目と構造は、旧 SSP ヘルプ（`../ukadoc-old/ssphelp/`）を模している: 左に目次と検索（`#menu`）、右に上からパンくずリスト（`#breadcrumb`）・本文（`#contents`）・前後のページ（`#navigation`）。HTML は HTML5 で、JavaScript は検索（`search.js`）と言語切替（`lang.js`）と、狭い画面の目次（`menu.js`）だけ。幅が 800px 以下では、左の目次を畳み、検索欄の左端のボタン（ハンバーガー）で開く引き出しにする（JavaScript が動かなければ、目次は本文の下に出る）
 - 出力のファイル名は旧 SSP ヘルプと同じ（`howto-boot.html` `config-ippan.html` など。名前は `scripts/prepare_site.py` の `PAGES` で決める）。Zensical 版の URL（`howto/boot/` など）には、旧名のページへ転送する HTML を置いている
 - 原稿はリポジトリ直下にあるため、`scripts/prepare_site.py` が `_site_src/` に写してからビルドする。その際 `INDEX.md` は `index.md`（トップページ）になり、`INDEX.md` へのリンクも書き換えられる。原稿内のリンク（`../config/folder.md#見出し` など）は、ビルドが出力の名前（`config-folder.html#見出し`）に書き換える
 - 章立て（左メニュー・パンくず・前後のページ）は `.nav.yml`。メニューの階層がそのまま前後のページの順（深さ優先）になる。前後のページの表示は、3 階層目のページだけ「カレンダー:スケジュール編集」のように親の名前が前に付く（旧版と同じ）
