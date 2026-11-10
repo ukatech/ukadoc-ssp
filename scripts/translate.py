@@ -165,7 +165,8 @@ def md_facts(text):
         'banner': sum(1 for l in prose if l.lstrip().startswith('|') and l.strip().strip('|').split('|')[0].strip() == 'バナー'),
         'alabels': sum(1 for l in prose if ANSWER_LABEL.match(l)),
         'tags': [re.sub(r'<br\s*/?>', '<br>', t) for t in html_skeleton(re.sub(r'`[^`\n]+`', '', joined))],   # 文中の HTML（<br> <strong> など）
-        'attrs': re.findall(r'\{[^}\n]*\}', re.sub(r'`[^`\n]+`', '', joined)),    # 画像の { width="400" } や {#id}
+        # 属性ブロック（{#id} {.class} {: …} { width="400" }）だけ。波括弧を普通の文字として使った説明文は訳してよい
+        'attrs': re.findall(r'\{\s*(?:[#.:][^}\n]*|[A-Za-z_-]+=[^}\n]*)\}', re.sub(r'`[^`\n]+`', '', joined)),
         'bullets': [(len(l) - len(l.lstrip()), l.lstrip()[:1].isdigit()) for l in prose if re.match(r'^\s*(?:[-*+]|\d+\.)\s', l)],
         'pipes': [len(re.findall(r'(?<!\\)\|', l)) for l in prose if l.lstrip().startswith('|')],
     }
