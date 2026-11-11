@@ -13,6 +13,7 @@ r"""サイトのビルド（oldstyle/build.py）のために、原稿を _site_s
   構造の判定と見出しの id は日本語の原稿から作る（訳した見出しでも `file.md#見出し` のリンクが切れないように）
 原稿そのものは書き換えない。materials/（画像の素材）はサイトに含めない。
 """
+import json
 import os
 import posixpath
 import re
@@ -36,6 +37,25 @@ def _lang_arg():
 LANG = _lang_arg()
 OUT = os.path.join(ROOT, '_site_src' + (f'_{LANG}' if LANG else ''))
 I18N = os.path.join(ROOT, 'i18n', LANG) if LANG else None
+
+
+def _load_originals():
+    """日本語以外が原文のファイルの登録簿（i18n/originals.json。キー → {"lang": 原文の言語, ...}）。無ければ空"""
+    try:
+        with open(os.path.join(ROOT, 'i18n', 'originals.json'), encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+ORIGINALS = _load_originals()
+
+
+def is_original_here(rel):
+    """翻訳版（LANG）で、rel の本文が原文（その言語で書かれた原文そのもの）か。原文の言語の版でだけ真。
+    ページの頭の見出しに class orig-lang を付け、CSS（html[lang] ごとの ::after）が「原文」の印にする"""
+    return bool(LANG) and ORIGINALS.get(rel, {}).get('lang') == LANG and os.path.isfile(os.path.join(I18N, rel))
+
 # そのまま 1 ファイル 1 ページで写すディレクトリ（入れ子のディレクトリも写す）
 DIRS = ['howto', 'functions', 'config', 'dev', 'about']
 # 用語説明のページ。この見出しの用語が、ほかのページの本文でリンクになる
@@ -320,9 +340,10 @@ def pin_ids(text, rel):
     if len(heads) != len(ids):
         sys.exit(f'エラー: {rel}: 訳文の見出しの数が原文と合わない（原文の toc {len(ids)}、訳文 {len(heads)}）')
     lines = text.split('\n')
-    for (i, indent, level, title), ident in zip(heads, ids):
+    for n, ((i, indent, level, title), ident) in enumerate(zip(heads, ids)):
         if not re.search(r'\{[^}]*#', title):
-            lines[i] = f'{indent}{"#" * level} {title} {{#{ident}}}'
+            cls = ' .orig-lang' if n == 0 and is_original_here(rel) else ''
+            lines[i] = f'{indent}{"#" * level} {title} {{#{ident}{cls}}}'
     return '\n'.join(lines)
 
 
