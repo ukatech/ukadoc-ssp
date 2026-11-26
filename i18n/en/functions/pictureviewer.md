@@ -1,104 +1,105 @@
 # Picture viewer
 
-A viewer window for displaying image files and performing simple operations such as zooming, rotating, and cropping, as well as saving and copying images in different formats.<br>
-You can check many of the image formats supported by SSP right away, and browse multiple images by opening them in tabs and switching between them.
+This viewer window displays image files and lets you perform simple operations such as resizing, rotation, and cropping, as well as save or copy images in a different format.<br>
+You can quickly view the many image formats supported by SSP and browse multiple images by switching between tabs.
 
-It’s useful for checking or converting small images, such as shell or balloon assets and photos you’ve taken.
+It is useful for checking or converting images such as shell and balloon assets or photos you have taken.
 
 ## Supported image formats
 
 The main supported image formats are listed below.<br>
-In the “Support” column, **SSP-wide** means formats that SSP itself can load by default (and that can also be used for shells, balloons, and other assets). **Viewer only** means formats that can only be displayed in this picture viewer (via OS WIC codecs).
+Under "Support", **Throughout SSP** means formats SSP can load natively (and that can also be used for shell and balloon assets), while **Viewer only** means formats that can only be displayed in this Picture viewer (via the OS's WIC codecs).
 
 | Format | Extension | Support | Notes |
 |---|---|---|---|
-| PNG / APNG | .png / .apng | SSP-wide | Supports alpha (transparency). Can also use an external alpha channel from a .pna file with the same name. Supports APNG (animated PNG) as well. |
-| WebP | .webp | SSP-wide | Supports animation and transparency. |
-| GIF | .gif | SSP-wide | Supports animation and transparency. |
-| MAG | .mag | SSP-wide | Retro format (MAKICHAN GRAPHICS, from the PC-9801 era). |
-| Pi | .pi | SSP-wide | Retro format (Pi format from the PC-9801 era). |
-| JPEG | .jpg / .jpeg | SSP-wide | Automatically applies EXIF Orientation (the orientation information recorded when the photo was taken). |
-| BMP | .bmp | SSP-wide | Windows bitmap. |
-| TIFF | .tif / .tiff | SSP-wide | Supports multiple pages (switch between them with Previous page / Next page). |
-| X BitMap / X PixMap | .xbm / .xpm | SSP-wide | Text-based image formats for the X Window System. |
-| TGA | .tga | SSP-wide | Truevision Targa. Supports transparency. |
-| Netpbm (Portable anymap) | .pbm / .pgm / .ppm / .pam / .pnm / .pfm | SSP-wide | Portable bitmap / graymap / pixmap formats. .pfm is a floating-point (HDR) format. |
-| PCX | .pcx | SSP-wide | ZSoft Paintbrush. |
-| QOI | .qoi | SSP-wide | Quite OK Image Format. |
-| ICO | .ico | SSP-wide | Windows icon format. |
-| DLL/EXE | .dll / .exe | SSP-wide | Lists the icons stored in DLL and EXE files and displays them one page at a time. |
-| PSD | .psd | SSP-wide | Adobe Photoshop. You can load individual layers as well as the merged image. |
-| PSP | .psp / .pspimage | SSP-wide | Paint Shop Pro. Version 4.0 and later. You can load individual layers as well as the merged image. |
-| OpenRaster | .ora | SSP-wide | You can load individual layers as well as the merged image. |
-| Krita | .kra | SSP-wide | You can load individual layers as well as the merged image. |
-| CLIP STUDIO | .clip | SSP-wide | You can load individual layers as well as the merged image. |
-| GIMP | .xcf | SSP-wide | You can load individual layers. The merged image cannot be loaded (this is not a problem in the viewer, because it composites and displays the individual layers). |
-| HEIF / HEIC | .heif / .heic | Viewer only | Requires the OS “[HEIF Image Extensions](https://apps.microsoft.com/detail/9pmmsr1cgpwg)”. |
-| AVIF | .avif | Viewer only | Requires the OS “[AV1 Video Extension](https://apps.microsoft.com/detail/9mvzqvxjbq9v)”. |
+| PNG / APNG | .png / .apng | Throughout SSP | Supports alpha transparency. Can also use external alpha from a .pna file with the same name. Also supports APNG (animated PNG). |
+| WebP | .webp | Throughout SSP | Supports animation and transparency. |
+| GIF | .gif | Throughout SSP | Supports animation and transparency. |
+| MAG | .mag | Throughout SSP | Retro format (MAKICHAN GRAPHICS, from the PC-9801 era). |
+| Pi | .pi | Throughout SSP | Retro format (Pi format from the PC-9801 era). |
+| JPEG | .jpg / .jpeg | Throughout SSP | Automatically applies EXIF Orientation (orientation information recorded when the photo was taken). |
+| BMP | .bmp | Throughout SSP | Windows bitmap. |
+| TIFF | .tif / .tiff | Throughout SSP | Supports multiple pages (switch using Previous page / Next page). |
+| X BitMap / X PixMap | .xbm / .xpm | Throughout SSP | Text-based image formats for the X Window System. |
+| TGA | .tga | Throughout SSP | Truevision Targa. Supports transparency. |
+| Netpbm (Portable anymap) | .pbm / .pgm / .ppm / .pam / .pnm / .pfm | Throughout SSP | Portable bitmap, graymap, and pixmap formats. .pfm is a floating-point (HDR) format. |
+| PCX | .pcx | Throughout SSP | ZSoft Paintbrush. |
+| QOI | .qoi | Throughout SSP | Quite OK Image Format. |
+| ICO / CUR | .ico / .cur | Throughout SSP | Windows icon and cursor formats. Supports alpha transparency. If multiple sizes are included, the largest is used. |
+| ANI | .ani | Throughout SSP | Windows animated cursor. Supports animation and transparency, and follows the playback order and frame delays. |
+| DLL/EXE | .dll / .exe | Throughout SSP | Lists icons stored in DLL or EXE files and displays them one page at a time. |
+| PSD | .psd | Throughout SSP | Adobe Photoshop. Can load individual layers as well as the merged image. |
+| PSP | .psp / .pspimage | Throughout SSP | Paint Shop Pro. version 4.0 and later. Can load individual layers as well as the merged image. |
+| OpenRaster | .ora | Throughout SSP | Can load individual layers as well as the merged image. |
+| Krita | .kra | Throughout SSP | Can load individual layers as well as the merged image. |
+| CLIP STUDIO | .clip | Throughout SSP | Can load individual layers as well as the merged image. |
+| GIMP | .xcf | Throughout SSP | Can load individual layers, but not the merged image (the viewer composites the layers for display, so this is not a problem). |
+| HEIF / HEIC | .heif / .heic | Viewer only | Requires the OS's [HEIF Image Extensions](https://apps.microsoft.com/detail/9pmmsr1cgpwg). |
+| AVIF | .avif | Viewer only | Requires the OS's [AV1 Video Extension](https://apps.microsoft.com/detail/9mvzqvxjbq9v). |
 | JPEG XR | .jxr / .wdp / .hdp | Viewer only | HD Photo. |
-| DDS | .dds | Viewer only | DirectDraw Surface. Displays only the first frame. |
-| Camera RAW | .cr2 / .nef / .arw, etc. | Viewer only | RAW formats from various manufacturers. Depends on the OS “[Raw Image Extension](https://apps.microsoft.com/detail/9nctdw2w1bh8)”. |
+| DDS | .dds | Viewer only | DirectDraw Surface. Only the first frame is displayed. |
+| Camera RAW | .cr2 / .nef / .arw and others | Viewer only | RAW formats from various manufacturers. Depends on the OS's [Raw Image Extension](https://apps.microsoft.com/detail/9nctdw2w1bh8). |
 
 !!! tip "ヒント"
 
-    “Viewer only” formats depend on codecs (image extensions) installed in the OS. The table above shows common examples, and some formats may not be readable in certain environments.<br>
-    Also, the “Viewer only” path does not support animation or multiple pages, and always displays only the first frame.
+    "Viewer only" formats depend on the codecs (image extensions) installed in the OS. The table above lists common examples; some may not be readable depending on your environment.<br>
+    The "Viewer only" route does not support animation or multiple pages, and always displays only the first frame.
 
 ## How to open
 
-You can open the picture viewer in any of the following ways.
+You can open the Picture viewer in either of the following ways.
 
-- **[Right-click menu](../howto/rclick.md) → “Functions” → “Picture viewer”**<br>
+- **[Right-click menu](../howto/rclick.md) → "Functions" → "Picture viewer"**<br>
   Opens the viewer with no image loaded.<br>
-  ⇒ See the “[Functions](index.md)” page as well.
+  ⇒ See also the [Functions](index.md) page.
 - **Drag and drop an image file onto a ghost**<br>
-  When you drop an image file onto a ghost, it opens automatically in this viewer if the ghost does not respond to the file.<br>
-  The viewer will not start if the file cannot be loaded as an image.
+  When you drop an image file onto a ghost, it automatically opens in this viewer if the ghost does not respond to the file.<br>
+  The viewer will not open if the file cannot be loaded as an image.
 
-After opening the viewer, you can add more images as tabs by selecting “Open image,” pasting from the clipboard, or dragging and dropping images into the viewer.
+After opening the viewer, you can add more images as tabs using "Open image", pasting from the clipboard, or dragging and dropping files into the viewer.
 
-## Window layout
+## Screen layout
 
 - **Menu bar**<br>
-  You can perform all operations from the “File,” “Edit,” and “View” menus (details below).
+  All operations are available from the "File", "Edit", and "View" menus (see below for details).
 - **Toolbar**<br>
-  Displays buttons for commonly used operations. Each button corresponds to a menu item; hover over a button to see its function name (tooltip).<br>
-  When Crop or Make top-left color transparent is on, its button appears pressed. The background toggle button’s icon changes each time you click it to show the current background (checkerboard / white / black).
+  This provides buttons for frequently used operations. Each button corresponds to a menu item, and its function name appears as a tooltip when you hover over it.<br>
+  The crop and make top-left color transparent buttons appear pressed when enabled. Each time you press the background toggle button, its icon changes to show the current background (checkerboard / white / black).
 - **Tabs**<br>
-  Each open image has its own tab. Click a tab to switch the displayed image.
+  A tab appears for each open image. Click a tab to switch the displayed image.
 - **Image display area**<br>
-  The area where the image is displayed. Scroll bars appear if the image is larger than the area.
+  This is where the image is displayed. Scrollbars appear if the image is larger than the area.
 - **Status bar**<br>
-  The bottom of the window displays the current image’s “dimensions (width × height),” “zoom level,” “rotation angle (with `<| />` shown when flipped horizontally),” and “format.”<br>
-  For formats such as WebP, which can use different compression methods with the same extension, `(lossless)` or `(lossy)` is shown after the format name. If different frames in an animation use different methods, `(mixed)` is shown.<br>
+  At the bottom of the window, this shows the current image's "dimensions (width × height)", "zoom level", "rotation angle" (with `<| />` also shown when flipped horizontally), and "format".<br>
+  For formats such as WebP, which use the same extension for different compression methods, `(lossless)` or `(lossy)` is shown after the format. If the method differs between frames in an animation, `(mixed)` is shown.<br>
   While cropping, the coordinates of the selected area are shown on the left.
 
-## Top Menu
+## Top menu
 
 ### File
 
 - **Open image...\[Ctrl+O\]**<br>
-  Opens the file selection dialog and opens the selected image in a new tab.
+  Opens a file selection dialog and displays the selected image in a new tab.
 - **Reload\[Ctrl+R / F5\]**<br>
   Reloads the currently displayed image from disk.<br>
-  Images opened from files are automatically reloaded when changes made externally are detected, but use this command when you want to reload manually.
+  Images opened from files are automatically reloaded when external changes are detected, but you can use this to reload them manually.
 - **Save as...\[Ctrl+S\]**<br>
-  Saves the displayed image. You can choose PNG/BMP/JPEG/WebP (lossless or lossy) as the format.<br>
-  If you have rotated, flipped, cropped, or resized the image, it is saved in its current displayed state (as it appears on screen).
+  Saves the displayed image. You can choose PNG, BMP, JPEG, or WebP (lossless or lossy).<br>
+  If you have rotated, flipped, cropped, or resized the image, it is saved as displayed.
 
 ### Edit
 
 - **Copy\[Ctrl+C\]**<br>
   Copies the displayed image to the clipboard while preserving transparency.<br>
-  If the image is rotated, flipped, or cropped, it is copied in its current displayed state.
+  If the image is rotated, flipped, or cropped, it is copied as displayed.
 - **Paste\[Ctrl+V\]**<br>
-  Imports the image on the clipboard as a new tab.
+  Imports the image on the clipboard into a new tab.
 - **Resize...**<br>
-  Enter the width and height in the dialog to scale the image.<br>
-  The original image is preserved, so specifying the original dimensions restores it (non-destructive).
+  Scales the image to the width and height specified in a dialog.<br>
+  The original image is preserved, and specifying its original dimensions restores it (non-destructive).
 - **Crop**<br>
-  Turns crop mode on or off.<br>
-  When enabled, drag on the image with the mouse to specify the area to crop. Only that area is included when you save or copy.
+  Toggles cropping mode on or off.<br>
+  When enabled, you can drag over the image to select an area to crop. Only that area is saved or copied.
 
 ### View
 
@@ -107,33 +108,33 @@ After opening the viewer, you can add more images as tabs by selecting “Open i
 - **Zoom in\[Ctrl++\] / Zoom out\[Ctrl+-\]**<br>
   Zooms in or out by a factor of 1.25. The zoom level ranges from 5% to 1600%.
 - **Fit to window**<br>
-  Automatically adjusts the zoom level so the entire image fits in the window. The zoom level adjusts when you resize the window.
+  Automatically adjusts the zoom level so the entire image fits in the window. It adjusts when the window is resized.
 - **Set zoom level...**<br>
-  Enter a zoom level (%) directly in the dialog.
+  Displays the image at a zoom level (%) entered directly in a dialog.
 - **Previous page\[PageUp\] / Next page\[PageDown\]**<br>
-  Move to the previous or next frame (page) in a multipage TIFF or animated image.
+  Moves to the previous or next frame (page) in a multipage TIFF or animated image.
 - **Rotate left / Rotate right**<br>
-  Rotates the display 90 degrees to the left or right. This only rotates the displayed image; the original image data is unchanged (the rotation is reflected when you save or copy).
+  Rotates the displayed image 90 degrees left or right at a time. This only affects the display; the original image data is not changed (but the rotation is reflected when saving or copying).
 - **Flip horizontally**<br>
-  Flips the display horizontally (mirrors it). This is also a display-only operation; the original image data is unchanged.
+  Flips the displayed image horizontally (mirror image). This also only affects the display; the original image data is not changed.
 - **Black background / White background / Checkerboard background**<br>
-  Switches the background shown behind transparent areas (the default is a checkerboard). Use this to check how transparent areas look.<br>
-  This setting is shared by all tabs and is retained the next time you start the program.
+  Changes the background behind transparent areas (the default is checkerboard). Use this to check how transparent areas appear.<br>
+  This setting applies to all tabs and is retained the next time you start SSP.
 - **Make top-left color transparent**<br>
-  Treats the color at the top-left of the image (coordinates 0,0) as transparent in the display only. This is useful for checking how images without a transparent background look when made transparent.<br>
-  This setting is shared by all tabs and is retained the next time you start the program.
+  Treats colors matching the color at the top-left of the image (coordinates 0,0) as transparent in the display only. This is useful for checking how an image without a transparent background color looks with transparency.<br>
+  This setting applies to all tabs and is retained the next time you start SSP.
 
 !!! tip "ヒント"
 
-    "Make top-left color transparent" only works on images that do not already have transparency (alpha). For images that already have transparent areas, this setting is not applied even when enabled, to prevent unintended areas from disappearing.
+    “Make top-left color transparent” only works on images that do not originally have transparency (alpha). It is not applied to images that already have transparent areas, even when enabled, to prevent unintended areas from disappearing.
 
-## Mouse and Keyboard Controls
+## Mouse and keyboard controls
 
-Scroll the mouse wheel to zoom in or out around the cursor position.<br>
-You can close a tab by middle-clicking it or clicking the "×" button on the tab. You can also right-click a tab and select "Close".<br>
-In crop mode, drag on the image to specify the area to crop.
+Turn the mouse wheel to zoom in or out centered on the cursor position.<br>
+You can close a tab by middle-clicking it or clicking its “×” button. You can also right-click the tab and select “Close”.<br>
+In cropping mode, drag over the image to select the area to crop.
 
-The main keyboard shortcuts are as follows.
+The main keyboard shortcuts are listed below.
 
 | Key | Function |
 |---|---|
@@ -150,44 +151,44 @@ The main keyboard shortcuts are as follows.
 | Ctrl+Tab | Switch to next tab |
 | Ctrl+Shift+Tab | Switch to previous tab |
 
-## Feature Details
+## Feature details
 
-### Zoom In and Out
+### Zooming
 
 The zoom level ranges from 5% to 1600%, and each zoom in or out changes it by a factor of 1.25.<br>
-The mouse wheel zooms around the cursor position, so you can quickly zoom in on the area you want to see. Select "Fit to window" to automatically adjust the zoom so the entire image always fits in the window.
+The mouse wheel zooms centered on the cursor position, so you can quickly enlarge the area you want to see. Select “Fit to window” to automatically adjust the image so it always fits entirely within the window.
 
-### Rotate and Flip Horizontally
+### Rotation and horizontal flipping
 
-You can rotate the image to the left or right (in 90-degree increments) and flip it horizontally. These are display-only operations and do not alter the original image data.
+You can rotate the image left or right (in 90-degree increments) and flip it horizontally. These operations only affect the display; the original image data itself is not modified.
 
 !!! tip "ヒント"
 
-    If you select "Save as" or "Copy" while the image is rotated or flipped, it is output in the orientation shown on screen.<br>
-    Note that changing pages or resizing the image clears the rotation, flip, and crop settings.
+    If you use “Save as” or “Copy” while the image is rotated or flipped, it is output in the orientation shown.<br>
+    Moving between pages or resizing the image clears the rotation, flip, and crop settings.
 
-### Displaying the Background and Transparent Areas
+### Background and transparency display
 
-You can choose a black, white, or checkerboard background to display behind transparent areas (the default is a checkerboard). The checkerboard uses a tiled pattern to make transparent areas easier to see.<br>
-Combine this with "Make top-left color transparent" to check how images without a transparent color look when made transparent.
+You can choose black, white, or checkerboard for the background behind transparent areas (the default is checkerboard). The checkerboard background uses tiled squares to make transparent areas easy to see.<br>
+Combined with “Make top-left color transparent”, this lets you check how an image without a transparent color looks with transparency.
 
-### Resize and Crop
+### Resizing and cropping
 
-With "Resize", you can scale the image by specifying its width and height. The original image is preserved, so you can restore its original dimensions.<br>
-Turn "Crop" on and drag on the image to specify the area to crop. The specified area is included when you save or copy, and its coordinates are shown on the left side of the status bar. Cropping is set separately for each tab and does not alter the original image.
+“Resize” lets you scale the image by specifying its width and height. Because the original image is preserved, you can also restore its original dimensions.<br>
+Turn on “Crop” and drag over the image to select the area to crop. The selected area is used when saving or copying, and its coordinates are displayed on the left side of the status bar. Cropping is set per tab and does not change the original image.
 
-### Save and Copy
+### Saving and copying
 
-With “Save As,” you can choose PNG, BMP, JPEG, or WebP (lossless or lossy). Lossless WebP preserves the image quality, while lossy WebP can reduce the file size.<br>
-The format initially selected in the save dialog matches the format of the original image. For WebP images, it also checks whether the original was saved losslessly or lossily.<br>
-If the original is a JPEG and you have not resized or cropped it, it is saved without re-encoding. In this case, rotation and flipping are applied without degrading image quality (lossless rotation), and metadata such as EXIF is removed.<br>
-“Copy” sends the image to the clipboard with its transparency preserved, so you can paste it with transparent areas intact into compatible applications.
+Under “Save As”, you can choose PNG, BMP, JPEG, or WebP (lossless or lossy). Lossless WebP preserves image quality, while lossy WebP can reduce the file size.<br>
+The format initially selected in the save dialog matches the original image format. For WebP images, it also matches whether the original was saved as lossless or lossy.<br>
+If the original is a JPEG and has not been resized or cropped, it is saved without re-encoding. Any rotation or flipping is applied without degrading image quality (lossless rotation), and metadata such as EXIF is removed.<br>
+“Copy” sends the image to the clipboard while preserving transparency, so you can paste it with its transparent areas intact into compatible applications.
 
-### Automatic Reload
+### Automatic reloading
 
-When an image opened from a file is updated by external software, the change is detected automatically and the display refreshes after about one second. This is useful when editing an image and checking it in the viewer.
+When an image opened from a file is updated by external software, the viewer detects the change automatically and refreshes the display after about 1 second. This is useful for checking an image in the viewer while editing it.
 
-### Multipage Images and Animation
+### Multipage images and animations
 
-You can switch between frames of multipage TIFFs and animated images such as GIF, APNG, and WebP using “Previous Page” and “Next Page” (they do not play automatically).<br>
-You can also switch between PSD layers using “Previous Page” and “Next Page” to view each layer individually.
+For multipage TIFFs and animated images such as GIF, APNG, and WebP, you can use “Previous Page” and “Next Page” to view individual frames (they are not played automatically).<br>
+For PSD files, you can also use “Previous Page” and “Next Page” to view each layer individually.

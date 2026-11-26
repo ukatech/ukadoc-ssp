@@ -25,7 +25,8 @@ SSPが対応している多くの画像形式をその場で確認できるほ�
 | Netpbm（Portable anymap） | .pbm / .pgm / .ppm / .pam / .pnm / .pfm | SSP全域 | ポータブルビット／グレイ／ピックスマップ系。.pfmは浮動小数点（HDR）形式。 |
 | PCX | .pcx | SSP全域 | ZSoft Paintbrush。 |
 | QOI | .qoi | SSP全域 | Quite OK Image Format。 |
-| ICO | .ico | SSP全域 | Windowsアイコン形式。 |
+| ICO / CUR | .ico / .cur | SSP全域 | Windowsアイコン・カーソル形式。アルファ（透明）対応。複数のサイズを含むときは最大のものを使います。 |
+| ANI | .ani | SSP全域 | Windowsのアニメーションカーソル。アニメーション・透過対応で、再生順と待ち時間にも従います。 |
 | DLL/EXE | .dll / .exe | SSP全域 | DLLやEXEファイルの中に格納されたアイコン群を列挙し、1ページずつ表示します。 |
 | PSD | .psd | SSP全域 | Adobe Photoshop。統合済み画像に加え、各レイヤーも個別に読み込み可。 |
 | PSP | .psp / .pspimage | SSP全域 | Paint Shop Pro。version4.0以降。統合済み画像に加え、各レイヤーも個別に読み込み可。 |
