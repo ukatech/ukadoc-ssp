@@ -7,5 +7,6 @@ nav:
   - Links: about/links.md
   - Frequently asked questions: about/faq.md
   - Glossary: about/reference.md
-  - SSP basic information: about/ssp.md
+  - About SSP: about/ssp.md
+  - SSPH (SSP Helper): about/ssph.md
   - Developer help: dev

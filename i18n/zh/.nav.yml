@@ -8,4 +8,5 @@ nav:
   - 常见问题: about/faq.md
   - 术语说明: about/reference.md
   - SSP 基本信息: about/ssp.md
+  - SSPH（SSP Helper）: about/ssph.md
   - 开发者帮助: dev

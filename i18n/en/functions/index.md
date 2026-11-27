@@ -1,177 +1,177 @@
-# Features
+# Functions
 
-This page explains the various SSP features that you can use from the “Features” submenu of the [right-click menu](../howto/rclick.md).
+This page explains the various SSP functions available from the Functions submenu of the [right-click menu](../howto/rclick.md).
 
-The item names may vary depending on the ghost, but their positions stay the same.<br>
-If you find the menu difficult to understand, you can turn off the ghost-defined menu items in Preferences under “[Ghost (1)](../config/ghost.md)”.
+Item names may differ depending on the ghost (their positions remain the same).<br>
+If you find this confusing, you can turn off ghost-defined menu labels under "[Ghost (1)](../config/ghost.md)" in Preferences.
 
 !!! tip "ヒント"
 
-    Some items in this submenu (such as Force exit from restricted mode, Script log, and Developer palette) are displayed only when [Developer mode is on](../config/ippan.md), but they are omitted from this page.<br>
-    For details about the menu and its features in Developer mode, see the “[Help for developers](../dev/index.md)” page.
+    This submenu contains some items that appear only when [development mode is on](../config/ippan.md), such as Force exit restricted mode, Script log, and Development palette. These are omitted from this page.<br>
+    For information about the menu and its functions in development mode, see the [Developer help](../dev/index.md) page.
 
-## When an item is grayed out and cannot be selected
+## When items are grayed out
 
-Depending on the ghost’s state, some items may be unavailable, as described below. This does not mean something is broken.
+Some items may be unavailable depending on the ghost's state, as described below. This is not a malfunction.
 
-- **When you open the menu for a ghost temporarily launched via SSTP or another method**<br>
-  “Calendar,” “SSP messenger,” and “NTP time sync” are unavailable.<br>
-  To make the ghost run in the normal state, use “Keep temporarily launched ghost.”
-- **While the ghost is minimized, or while it cannot accept input (restricted mode)**<br>
-  In addition to the items above, “Address bar,” “Check for baseware updates,” and “Reload ghost” are unavailable.
+- **When you open the menu of a ghost temporarily launched via SSTP or similar**<br>
+  "Calendar", "SSP messenger", and "NTP time sync" are unavailable.<br>
+  To put the ghost in a normal running state, use "Keep temporarily launched ghost".
+- **While the ghost is minimized or is not accepting input (restricted mode)**<br>
+  In addition to the above, "Address bar", "Check for SSP updates", and "Reload ghost" are unavailable.
 - **Other cases**<br>
-  “SSP messenger” is unavailable while “Use IP Messenger compatibility mode” is turned off under “[IM](../config/im.md)” in Preferences.<br>
-  “Keep temporarily launched ghost” is available only for ghosts that were temporarily launched.
+  "SSP messenger" is unavailable while "Use IP Messenger compatibility mode" is off under "[IM](../config/im.md)" in Preferences.<br>
+  "Keep temporarily launched ghost" is available only for temporarily launched ghosts.
 
-## Details about each item
+## Item descriptions
 
 ### Calendar
 
 Launches the schedule management tool included with SSP.<br>
-Select it again to close the calendar if it is already open. (A check mark appears next to the item while it is open.)<br>
+If it is already open, selecting this item again closes Calendar (the item is checked while it is open).<br>
 Shortcut key: Ctrl - D<br>
-⇒For details, see the “[Calendar](calendar/index.md)” page.
+⇒ For details, see the [Calendar](calendar/index.md) page.
 
 ### SSP messenger
 
 Launches the messenger feature included with SSP.<br>
 Shortcut key: Ctrl - M<br>
-⇒For details, see the “[SSP messenger](sspim/index.md)” page.
+⇒ For details, see the [SSP messenger](sspim/index.md) page.
 
 ### NTP time sync
 
-Connects to an external server to check whether your computer’s clock is out of sync and, if necessary, corrects it to the right time.<br>
-Recent operating systems seem to sync the time automatically. Use this feature if you need to sync it manually or are using an older operating system.
+Contacts an external server to check the computer's clock and corrects it if necessary.<br>
+Recent operating systems generally synchronize the clock automatically. Use this if you need to synchronize it manually or are using an older OS.
 
-When you select it, the ghost starts talking about “contacting the server.” Once the result is available, the ghost reports how far off the clock was.<br>
-If the connection fails, the ghost tells you that it failed.<br>
-Whether the clock is actually changed depends on the ghost’s response. Some ghosts ask you for confirmation, while others simply report the result.
+When selected, the ghost starts by saying it is contacting the server, then reports how far off the clock was when the result is available.<br>
+If the connection fails, the ghost reports the failure.<br>
+Whether the clock is actually changed depends on the ghost's response (some ghosts ask for confirmation, while others only report the result).
 
-- You need administrator privileges on the operating system to change the clock. If you do not have the required privileges, a confirmation dialog (UAC) may appear.
-- You can configure the server to use under “[Connection (1)](../config/conn1.md)” in Preferences. You can also configure automatic time sync at regular intervals in the same place. When time sync runs automatically, the clock is corrected without any conversation with the ghost.
-- Depending on settings such as the time allowed for network connections, a dialog may appear before the feature runs, asking whether it can connect.
-- This feature may be disabled or have no effect in some environments.
+- Changing the clock requires OS administrator privileges. If you do not have permission, a confirmation dialog (UAC) may appear. "SSP Helper" in this dialog is a helper program included with SSP. For details, see [About SSPH (SSP Helper)](../about/ssph.md#uacの確認画面が出るとき).
+- You can configure the server under "[Connection (1)](../config/conn1.md)" in Preferences. You can also set the clock to synchronize automatically at regular intervals in the same place. When synchronization is automatic, the clock is corrected without a conversation with the ghost.
+- Depending on settings such as the allowed network connection times, a dialog may appear before execution asking whether to connect.
+- This feature may be unavailable or have no effect in some environments.
 
 ### Explorer
 
-Launches Explorer, which you can use to manage ghosts, balloons, shells, headlines, plugins, and more.<br>
+Launches Explorer, which manages ghosts, balloons, shells, headlines, plugins, and more.<br>
 Shortcut key: Ctrl - E<br>
-⇒For details, see the “[Explorer](explorer/index.md)” page.
+⇒ For details, see the [Explorer](explorer/index.md) page.
 
 ### Picture viewer
 
 Launches a viewer for displaying and making simple edits to image files.<br>
-⇒For details, see the “[Picture viewer](pictureviewer.md)” page.
+⇒ For details, see the [Picture viewer](pictureviewer.md) page.
 
 ### Archive viewer
 
 Launches a viewer for displaying and making simple edits to archive files.<br>
-When launched, no archive is open yet. If the viewer is already open, it is brought to the foreground instead of opening a new window.<br>
-⇒For details, see the “[Archive viewer](archiveviewer.md)” page.
+When selected, it starts without opening an archive. If the viewer is already open, its window is brought to the front instead of opening a new one.<br>
+⇒ For details, see the [Archive viewer](archiveviewer.md) page.
 
 ### Backlog
 
-Displays the backlog (history of things the ghost has said). Use it to review past conversations if you missed something the ghost said.<br>
+Displays the backlog (speech history), so you can review past conversations if you missed something.<br>
 Shortcut key: Ctrl - B
 
-- Each ghost has its own history. Entries are listed from oldest to newest, with the latest at the bottom. When you open the backlog, it shows the latest entry.
-- Each entry appears in a speech bubble, with an image of the character’s face to show who was speaking. You can scroll through a long history with the mouse wheel or scrollbar.
-- Normally, the backlog appears in a separate window. If you close and reopen it, it appears in the same position and size as before. The bottom of this window shows the date and time of the latest entry (Update: year-month-day hour:minute:second).
-- If “Integrate backlog/speech history” is turned on in [Window mode](windowmode.md), the backlog appears in the same window as the ghost. For details, see “[Integrating the backlog](windowmode.md#バックログの統合).”
+- Each ghost has its own history. Statements are listed from oldest at the top to newest at the bottom. When opened, the view is positioned at the latest statement.
+- Each statement appears in a speech bubble with an image of the character's face to show who spoke. You can scroll back through long histories using the mouse wheel or scrollbar.
+- Normally, the backlog appears in a separate window. When reopened, it retains its previous position and size. The date and time of the latest statement (Update : year-month-day hour:minute:second) appear at the bottom of the window.
+- If "Also integrate backlog/speech history" is on in [Window mode](windowmode.md), the backlog appears inside the same window as the ghost. For details, see [Integrating the backlog](windowmode.md#バックログの統合).
 
 ### Check for SSP updates
 
-Check immediately for SSP updates.
+Immediately checks whether an SSP update is available.
 
-- If a new version is available, a dialog opens showing the version and asking whether you want to update. Select "Yes" to proceed with the update.
-- If you already have the latest version or the check fails, a dialog will notify you.
+- If a new version is available, a dialog displays the version and asks whether to update. Select “Yes” to proceed with the update.
+- If SSP is already up to date or the check fails, a dialog notifies you.
 
-For more information about updating SSP, see the "[Updating SSP](../howto/verup.md)" page.
+For more information about updating SSP, see [Updating SSP](../howto/verup.md).
 
 ### Speech recognition
 
-This is command-based speech recognition (it responds to specific, predefined phrases). Select it to open the Speech recognition palette.<br>
-⇒For details, see the "[Speech recognition](speech-recognition.md)" page.<br>
-You can configure it in Preferences under "[Speech recognition/synthesis](../config/dictation.md)".
+This is a command-based speech recognition feature that responds to specific words. Select it to open the speech recognition palette.<br>
+⇒ For details, see [Speech recognition](speech-recognition.md).<br>
+You can configure it under [Speech recognition/Synthesis](../config/dictation.md) in Preferences.
 
 ### Voice synthesis
 
-The text spoken in the balloon is pronounced as-is using voice synthesis.<br>
-Each time you select this item, it switches on or off. A check mark appears next to the item when it is on. The on/off state is retained the next time you start SSP.<br>
-⇒For details, see the "[Voice synthesis](speech-synthesis.md)" page.<br>
-You can configure the voice, speed, volume, and other settings in Preferences under "[Speech recognition/synthesis](../config/dictation.md)".
+Speaks the text displayed in the balloon using voice synthesis.<br>
+Select this item to toggle it on or off. A check mark appears next to the item while it is on. The on/off state is retained the next time SSP starts.<br>
+⇒ For details, see [Voice synthesis](speech-synthesis.md).<br>
+You can configure the voice, speed, volume, and other options under [Speech recognition/Synthesis](../config/dictation.md) in Preferences.
 
 ### Address bar
 
-Opens an address input box, downloads the file at the URL you enter, and attempts to install it.<br>
-This is basically the same as installing a file by **dragging and dropping** a link from a browser.<br>
-Use this when, for example, the browser's behavior prevents you from successfully dragging and dropping a link.<br>
-Shortcut key: Ctrl - Shift - U
+Opens an address input box, downloads the file at the entered URL, and attempts to install it.<br>
+This is essentially the same as installing by **dragging and dropping** a link from a browser.<br>
+Use this when dragging and dropping a link does not work properly, such as because of browser behavior.<br>
+Keyboard shortcut: Ctrl - Shift - U
 
 ### Open file
 
-Opens a file selection dialog, and SSP attempts to open the selected file.<br>
-This is basically the same as **dragging and dropping** a file onto a ghost (if it is a ghost installation file, installation begins).<br>
-Use this when, for example, drag-and-drop does not work properly in a Wine environment.<br>
-Shortcut key: Ctrl - O
+Opens a file selection dialog and has SSP attempt to open the selected file.<br>
+This is essentially the same as **dragging and dropping** a file onto a ghost (if it is a ghost installation file, installation begins).<br>
+Use this when drag and drop does not work properly, such as in a Wine environment.<br>
+Keyboard shortcut: Ctrl - O
 
 ### Select folder
 
-Opens a folder selection dialog, and SSP attempts to open the selected folder.<br>
-This is basically the same as **dragging and dropping** a folder onto a ghost.<br>
-Use this when, for example, drag-and-drop does not work properly in a Wine environment.<br>
-Shortcut key: Ctrl - F
+Opens a folder selection dialog and has SSP attempt to open the selected folder.<br>
+This is essentially the same as **dragging and dropping** a folder onto a ghost.<br>
+Use this when drag and drop does not work properly, such as in a Wine environment.<br>
+Keyboard shortcut: Ctrl - F
 
 ### Release ghost cache
 
-Releases the ghost cache held in memory (so it is no longer kept in memory). This also frees up memory used by SSP.<br>
-The cache is managed automatically, so you usually do not need to use this feature.<br>
-Use it if memory usage has become high, such as after switching between many ghosts over a long period.<br>
-For ghosts whose cache has been released, the cache will no longer speed up startup, so they will take a little longer to start next time.
+Releases the ghost cache from memory. This also cleans up the memory used by SSP.<br>
+The cache is managed automatically, so you normally do not need to use this.<br>
+Use it if memory consumption becomes excessive after switching between many ghosts over a long period.<br>
+A ghost whose cache was released will take a little longer to start next time because it can no longer benefit from the cache.
 
 !!! tip "ヒント"
 
-    When multiple ghosts are running, the ghost cache keeps information about ghosts that you switch away from or close in memory for a limited time. This helps reduce the time needed to restart them.<br>
-    You can configure this in Preferences under "[Ghost (1)](../config/ghost.md#ゴーストキャッシュ制御)".
+    When multiple ghosts are running and you switch or close only some of them, the ghost cache keeps their information in memory for a certain period to save time when restarting them.<br>
+    You can configure this under [Ghost (1)](../config/ghost.md#ゴーストキャッシュ制御) in Preferences.
 
-### Organize/update FMO
+### Clean up/Update FMO
 
-Organizes and updates SSP information used to communicate with other applications. Any invalid information is removed, and the contents are updated to reflect the current running state.<br>
-You generally do not need to use this when running SSP on its own.<br>
-This may resolve problems such as SSTP messages not being delivered correctly when you use SSP alongside other applications that use SSTP communication.
+Cleans up and updates the SSP information used to interact with other applications. Invalid information is removed, and the remaining information reflects the current running state.<br>
+You generally do not need to use this when using SSP on its own.<br>
+When using SSP alongside other applications that communicate via SSTP, this may resolve problems such as SSTP messages not being delivered correctly.
 
-### Reload runtime information
+### Reload operational information
 
-Reloads all files for the currently loaded ghosts, balloons, headlines, plugins, and other items.<br>
-Use this to apply changes if you directly move or delete files while SSP is running.<br>
-This is the same as using File → Reload for every type in [Explorer](explorer/index.md).
+Reloads all files for loaded ghosts, balloons, headlines, plugins, and so on.<br>
+Use this to reflect changes if you have directly moved or deleted files while SSP is running.<br>
+This is equivalent to using File→Reload for every type in [Explorer](explorer/index.md).
 
 ### Reload ghost
 
 Reloads the running ghost. This is the same as selecting the currently running ghost again from the Change ghost menu.<br>
-Use this to apply changes if you directly edit the ghost's files.
+Use this to reflect changes after directly editing a ghost's files, for example.
 
-### Keep temporarily launched ghost
+### Keep temporarily started ghost
 
-Fully loads a ghost that was temporarily launched at a command from SSTP or another source, and keeps it running.<br>
-When you do this, the ghost enters the same state as when launched normally, begins its startup talk, and makes all menu features available.<br>
-You can select this item only for a temporarily launched ghost.<br>
-Shortcut key: Ctrl - K
+Fully loads a ghost that was started temporarily by a request via SSTP or similar means and keeps it running.<br>
+The ghost enters the same state as when started normally, begins its startup talk, and gains access to the full range of menu functions.<br>
+This item can only be selected for a temporarily started ghost.<br>
+Keyboard shortcut: Ctrl - K
 
 ### Reset shell position
 
-Returns the display position of the ghost whose menu is open to its position at first startup. This applies to all characters in that ghost, including the main and sub characters.<br>
-If a ghost has moved off-screen, this may help bring it back.<br>
-Shortcut key: Ctrl - Shift - F12
+Returns the position of the ghost whose menu is open to its initial startup position. This applies to all characters in that ghost, including the main and secondary characters.<br>
+This may help bring a ghost back if it has moved off-screen.<br>
+Keyboard shortcut: Ctrl - Shift - F12
 
 ### Reset balloon position
 
-Resets the display position of the balloon belonging to the ghost whose menu is open. Any balloon you have moved by dragging returns to its default position for each character.<br>
-This may help restore a balloon that has moved off-screen, for example.<br>
+Resets the balloon positions for the ghost whose menu is open. Balloons moved by dragging return to their default positions relative to each character.<br>
+This may help restore a balloon that has moved off-screen.<br>
 Shortcut key: Ctrl - Shift - F10
 
-### Close balloons
+### Hide balloons
 
-Forcibly closes the balloons of all characters belonging to the ghost whose menu is open.<br>
-You can also do this with the “Ctrl-Shift-Del” [shortcut key](shortcut.md).<br>
-However, the balloons may not close while the ghost is talking, displaying choices, waiting for input, or in similar situations.
+Forcibly closes the balloons for all characters of the ghost whose menu is open.<br>
+You can also use the [shortcut key](shortcut.md) "Ctrl-Shift-Del".<br>
+However, balloons may not close in some situations, such as while the ghost is speaking, displaying choices, or waiting for input.

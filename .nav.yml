@@ -8,4 +8,5 @@ nav:
   - よくある質問: about/faq.md
   - 用語説明: about/reference.md
   - SSPの基本情報: about/ssp.md
+  - SSPH（SSP Helper）: about/ssph.md
   - 開発者向けヘルプ: dev

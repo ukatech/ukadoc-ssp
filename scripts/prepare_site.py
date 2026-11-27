@@ -111,6 +111,7 @@ PAGES = {
     'faq': 'about/faq.md',
     'reference': 'about/reference.md',
     'aboutssp': 'about/ssp.md',
+    'about-ssph': 'about/ssph.md',
     'dev': 'dev/index.md',
     'dev-scriptlog': 'dev/scriptlog.md',
     'dev-palette': 'dev/palette.md',
